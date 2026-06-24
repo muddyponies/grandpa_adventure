@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grandpa Adventure — The Big One</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rust: #8B3A0F;
+  --rust-lt: #F5ECD7;
+  --rust-mid: #C4622D;
+  --sand: #FAF6EE;
+  --sand-mid: #EFE8D8;
+  --ink: #1C1410;
+  --ink-mid: #4A3728;
+  --muted: #8A7060;
+  --sage: #4A6741;
+  --sage-lt: #E8F0E5;
+  --gold: #8B6914;
+  --gold-lt: #FFF4D6;
+  --slate: #2C4A6B;
+  --slate-lt: #E4EDF5;
+  --success: #2E6B3A;
+  --success-lt: #E4F2E7;
+  --danger: #8B1A1A;
+  --danger-lt: #FAE8E8;
+  --info: #1A5280;
+  --info-lt: #E4F0FA;
+  --border: rgba(139,58,15,0.15);
+  --border-strong: rgba(139,58,15,0.3);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow: 0 1px 3px rgba(28,20,16,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--sand);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── Header ── */
+.site-header {
+  background: var(--rust);
+  padding: 2.5rem 1.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(255,255,255,0.03) 20px,
+    rgba(255,255,255,0.03) 21px
+  );
+}
+.site-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  position: relative;
+}
+.site-header .tagline {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.75);
+  margin-top: 0.5rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  position: relative;
+}
+.route-banner {
+  background: rgba(0,0,0,0.2);
+  margin: 1.25rem -1.5rem -2rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.02em;
+  line-height: 1.7;
+  position: relative;
+}
+
+/* ── Layout ── */
+.main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+/* ── Stats ── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+.stat {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  box-shadow: var(--shadow);
+}
+.stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+.stat-val { font-size: 1.4rem; font-weight: 600; color: var(--rust); }
+
+/* ── Filters ── */
+.filter-section { margin-bottom: 1.25rem; }
+.filter-section-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+.filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.fb {
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink-mid);
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.fb:hover { background: var(--rust-lt); border-color: var(--rust); color: var(--rust); }
+.fb.on { background: var(--rust); border-color: var(--rust); color: #fff; }
+
+/* ── Action buttons ── */
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2rem; }
+.btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: #fff;
+  color: var(--ink-mid);
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: var(--shadow);
+}
+.btn:hover { background: var(--rust-lt); border-color: var(--rust); color: var(--rust); }
+.btn.primary { background: var(--rust); border-color: var(--rust); color: #fff; }
+.btn.primary:hover { background: var(--rust-mid); }
+
+/* ── Legs ── */
+.leg {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.leg-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s;
+  background: var(--rust-lt);
+  border-bottom: 0.5px solid var(--border);
+}
+.leg-header:hover { background: var(--sand-mid); }
+.leg-icon { font-size: 1.25rem; width: 28px; text-align: center; flex-shrink: 0; }
+.leg-text { flex: 1; min-width: 0; }
+.leg-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--rust); }
+.leg-sub { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
+.leg-badge {
+  font-size: 0.68rem;
+  background: var(--rust);
+  color: #fff;
+  border-radius: 20px;
+  padding: 2px 9px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+.leg-badge.empty { background: var(--sand-mid); color: var(--muted); }
+.leg-chevron { font-size: 1rem; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+.leg-chevron.open { transform: rotate(180deg); }
+.leg-body { padding: 0 16px 16px; }
+
+/* ── Section labels ── */
+.slbl {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin: 16px 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.slbl::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+
+/* ── Stop cards ── */
+.sg { display: flex; flex-direction: column; gap: 6px; }
+.sc {
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+  background: #fff;
+}
+.sc:hover { border-color: var(--rust-mid); background: #fff9f5; }
+.sc.ck { border-color: var(--sage); background: var(--sage-lt); }
+.sc.sq { border-style: dashed; }
+.sc.sq.ck { border-style: dashed; }
+
+/* Checkbox */
+.chk {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid var(--border-strong);
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s;
+  background: #fff;
+  color: transparent;
+  font-size: 11px;
+}
+.sc.ck .chk { background: var(--sage); border-color: var(--sage); color: #fff; }
+
+/* Stop content */
+.si { flex: 1; min-width: 0; }
+.stop-top { display: flex; align-items: flex-start; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
+.sn { font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.tgs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 5px; }
+.tg {
+  font-size: 0.65rem;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.tg-star    { background: var(--gold-lt);    color: var(--gold); }
+.tg-rock    { background: var(--info-lt);    color: var(--info); }
+.tg-cave    { background: #F0EBE3;  color: #5A4A3A; }
+.tg-ghost   { background: #EEEEEE;  color: #555; }
+.tg-history { background: #EEEAE4;  color: #5A4A30; }
+.tg-view    { background: var(--slate-lt);   color: var(--slate); }
+.tg-dark    { background: #1C1C2E;  color: #C8B4F8; }
+.tg-weird   { background: #F3EAFF;  color: #6A3A8A; }
+.tg-train   { background: var(--success-lt); color: var(--success); }
+.tg-ranger  { background: var(--success-lt); color: var(--success); }
+.tg-nature  { background: var(--sage-lt);    color: var(--sage); }
+.tg-art     { background: #F0E8F8;  color: #5A2A8A; }
+.tg-alien   { background: #E3FFEA;  color: #0A6A20; }
+.tg-hot     { background: var(--danger-lt);  color: var(--danger); }
+.tg-swim    { background: #DCF0FF;  color: #0A5080; }
+.tg-eat     { background: var(--gold-lt);    color: var(--gold); }
+.tg-coffee  { background: #F5EDE0;  color: #6B3D00; }
+.tg-bakery  { background: #FFF0E4;  color: #A04010; }
+.tg-diner   { background: var(--gold-lt);    color: var(--gold); }
+.tg-drive   { background: var(--slate-lt);   color: var(--slate); }
+
+.sdesc { font-size: 0.78rem; color: var(--ink-mid); line-height: 1.55; }
+.sdrv { font-size: 0.7rem; color: var(--muted); margin-top: 5px; display: flex; align-items: center; gap: 4px; }
+.sdrv::before { content: '→'; font-size: 0.7rem; color: var(--rust-mid); }
+
+/* ── Route preview ── */
+.rp {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  display: none;
+}
+.rp-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
+.rp-stops { font-size: 0.8rem; line-height: 1.9; color: var(--muted); }
+.rp-stops .act { color: var(--rust); font-weight: 500; }
+
+/* ── Print button ── */
+.print-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: var(--rust);
+  color: #fff;
+  border: none;
+  border-radius: 28px;
+  padding: 12px 22px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(139,58,15,0.35);
+  transition: all 0.15s;
+  z-index: 100;
+}
+.print-btn:hover { background: var(--rust-mid); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(139,58,15,0.4); }
+
+/* ── Legend ── */
+.legend {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.legend-title { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
+.legend-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ── Print styles ── */
+@media print {
+  body { background: #fff; font-size: 11px; }
+  .site-header { background: #8B3A0F !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 1.5rem; }
+  .print-btn, .actions, .filters, .filter-section, .fb { display: none !important; }
+  .main { padding: 1rem; }
+  .leg { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+  .sc { break-inside: avoid; }
+  .sc:not(.ck) { display: none !important; }
+  .leg-body[style*="display: none"] { display: block !important; }
+  .leg-header { background: #F5ECD7 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .leg-chevron { display: none; }
+  .stats { display: none; }
+  .legend { display: none; }
+  .rp { display: none !important; }
+  .slbl { display: flex !important; }
+  .sg .sc:not(.ck) { display: none; }
+}
+
+@media (max-width: 600px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .site-header h1 { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>Grandpa Adventure — The Big One</h1>
+  <p class="tagline">Denver · Southwest · Big Bend · Four Corners · Utah · Home</p>
+  <div class="route-banner">
+    Denver &rarr; Raton &rarr; Roswell &rarr; Carlsbad &rarr; White Sands &rarr; Marfa &rarr; Big Bend &rarr; Tucson &rarr; Coronado Trail &rarr; Canyon de Chelly &rarr; Ship Rock &rarr; Monument Valley &rarr; Grand Canyon &rarr; Zion &rarr; Bryce &rarr; Capitol Reef &rarr; Chaco &rarr; Durango &rarr; Million Dollar Highway &rarr; Ouray &rarr; Denver
+    <br><span style="color:rgba(255,255,255,0.55);font-size:0.72rem;">Solid cards = main stops &nbsp;·&nbsp; Dashed cards = side quests &nbsp;·&nbsp; Check what sounds good, skip what doesn't &nbsp;·&nbsp; Print shows only checked stops</span>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Stops checked</div><div class="stat-val" id="s-ck">0</div></div>
+    <div class="stat"><div class="stat-label">Must-dos in</div><div class="stat-val" id="s-st">0 / 0</div></div>
+    <div class="stat"><div class="stat-label">Food finds in</div><div class="stat-val" id="s-fd">0</div></div>
+    <div class="stat"><div class="stat-label">Total stops</div><div class="stat-val" id="s-tt">0</div></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-title">Stop types</div>
+    <div class="legend-grid" id="legend-grid"></div>
+  </div>
+
+  <div class="filter-section">
+    <div class="filter-section-label">Filter by type</div>
+    <div class="filters" id="frow"></div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" onclick="chkAll()">Check all</button>
+    <button class="btn" onclick="clrAll()">Clear all</button>
+    <button class="btn" onclick="chkStars()">Must-dos only</button>
+    <button class="btn" onclick="chkFood()">Food &amp; coffee only</button>
+    <button class="btn" onclick="chkHot()">Hot springs &amp; swims</button>
+    <button class="btn" onclick="chkDark()">Dark sky sites</button>
+    <button class="btn primary" onclick="window.print()">&#x2399; Print my trip</button>
+  </div>
+
+  <div class="rp" id="rp">
+    <div class="rp-label">Your selected route</div>
+    <div class="rp-stops" id="rp-stops"></div>
+  </div>
+
+  <div id="legs"></div>
+
+</main>
+
+<button class="print-btn" onclick="window.print()">&#x2399; Print my trip</button>
+
+<script>
+const FTYPES = [
+  {k:'all',l:'All stops'},
+  {k:'star',l:'⭐ Must-do'},
+  {k:'eat',l:'🍔 Diner / local eats'},
+  {k:'bakery',l:'🥐 Bakery / pastry'},
+  {k:'coffee',l:'☕ Coffee'},
+  {k:'hot',l:'♨️ Hot springs'},
+  {k:'swim',l:'🏊 Swimming hole'},
+  {k:'dark',l:'🌌 Dark sky'},
+  {k:'view',l:'🏔️ Scenic pull-off'},
+  {k:'rock',l:'🪨 Rockhound'},
+  {k:'cave',l:'🔦 Cave'},
+  {k:'ghost',l:'👻 Ghost town'},
+  {k:'train',l:'🚂 Train ride'},
+  {k:'art',l:'🎨 Art / museum'},
+  {k:'alien',l:'🛸 Alien / UFO'},
+  {k:'weird',l:'🤪 Weird Americana'},
+  {k:'ranger',l:'🌲 Ranger program'},
+];
+
+const TL = {
+  star:'must-do', rock:'rockhound', cave:'cave', ghost:'ghost town',
+  train:'train', art:'art/museum', alien:'alien/UFO',
+  hot:'hot spring', swim:'swim hole', dark:'dark sky',
+  view:'scenic pull-off', eat:'local eats', coffee:'coffee',
+  bakery:'bakery', diner:'diner', weird:'weird americana',
+  ranger:'ranger program', nature:'nature', history:'history', drive:'scenic drive'
+};
+
+const DATA = [
+  {id:'co', ico:'🗺️', t:'Colorado — heading south', s:'Denver to the New Mexico border', stops:[
+    {id:'c1',n:'Worth the Drive Bakery — Monte Vista CO',tg:['bakery','star'],sq:true,d:'Amish-run bakery on a country road in the San Luis Valley — famous for cinnamon rolls that are almost impossible to finish alone. 4.9 stars. Open Tue–Sat 8am. The name is not ironic.',dr:'Monte Vista CO — 35 min off I-25 via US-160, right on the way south'},
+    {id:'c2',n:'Rosemount Museum — Pueblo CO',tg:['art','history'],sq:true,d:'Stunning 37-room Victorian mansion built in 1893. A small museum that genuinely needs the patronage. Completely unexpected in Pueblo and completely worth it.',dr:'~1.5 hrs from Denver on I-25'},
+    {id:'c3',n:'A.R. Mitchell Museum — Trinidad CO',tg:['art','history'],sq:true,d:'Largest collection of Harvey Dunn and Harold von Schmidt Western art originals anywhere. Beautiful brick Santa Fe Trail town. The Corazon de Trinidad is a National Historic District.',dr:'~3 hrs from Denver on I-25'},
+    {id:'c4',n:'Raton Pass & St. James Hotel — Cimarron NM',tg:['star','history','view'],sq:false,d:'The Santa Fe Trail came right through Raton Pass. The St. James Hotel in Cimarron has bullet holes in the ceiling from when it was the most dangerous saloon in the territory. Kit Carson, Jesse James, and Buffalo Bill all passed through.',dr:'~4 hrs from Denver — Cimarron is 30 min east of Raton on NM-21'},
+  ]},
+  {id:'nm', ico:'🛸', t:'New Mexico — Roswell to White Sands', s:'Aliens, the best burger in America, and white gypsum desert', stops:[
+    {id:'n1',n:'Roswell — International UFO Museum',tg:['star','alien','art'],sq:false,d:'Wonderfully, sincerely bizarre — crash debris replicas, alien autopsy dioramas, declassified government documents. The town has fully committed and the result is kitsch at its most earnest. Grandpa will be magnificently grumpy or absolutely delighted. Either outcome is correct.',dr:'~2 hrs south of Raton on US-285'},
+    {id:'n2',n:'Bottomless Lakes State Park',tg:['swim','nature'],sq:true,d:'Seven sinkhole lakes with vivid blue-green water near Roswell. Swimming, kayaking, easy half-day. Good post-alien decompression.',dr:'15 min east of Roswell'},
+    {id:'n3',n:'The Owl Bar & Cafe — San Antonio NM',tg:['star','eat','diner'],sq:false,d:'Open since 1945. The green chile cheeseburger against which all others are judged. Manhattan Project scientists ate here between shifts at Trinity Site. The 25-foot mahogany bar is from Conrad Hilton\'s first hotel. On average summer days they serve 600–700 burgers. Order the green chile cheese fries too.',dr:'San Antonio NM on US-380 — right on the route between Socorro and Truth or Consequences'},
+    {id:'n4',n:'Buckhorn Tavern — San Antonio NM',tg:['eat','diner'],sq:true,d:'The Owl Bar\'s friendly rival across the street — also famous for green chile cheeseburgers. Same tiny town. This may be the highest concentration of legendary burgers per capita anywhere in the world.',dr:'Literally across the street from the Owl Bar'},
+    {id:'n5',n:'Carlsbad Caverns NP — the Big Room',tg:['star','cave'],sq:false,d:'14 acres of cathedral space 750 feet underground. The Big Room, the Bottomless Pit, cave pearls, formations the size of houses. Walk in through the Natural Entrance — a mile-long descent through the cave mouth — or take the elevator down.',dr:'~1.5 hrs SE of Roswell — allow at least 3 hours'},
+    {id:'n6',n:'Carlsbad Caverns — bat flight at sunset',tg:['star','ranger'],sq:false,d:'Hundreds of thousands of Mexican free-tailed bats spiral out of the cave mouth at dusk in a column that can last 20 minutes. Free, no reservation needed — just show up at the outdoor amphitheater before sunset. Rangers narrate. Nothing else like this anywhere.',dr:'Same site as Carlsbad Caverns — check nps.gov/cave for the exact announced time for your date'},
+    {id:'n7',n:'White Sands NP',tg:['star','view','dark'],sq:false,d:'Pure white gypsum dunes stretching to the horizon — NASA tests rovers here because it resembles another planet. Arrive late afternoon and stay for sunset. The light turns every dune pink and gold. The gift shop rents sleds. Stunning dark sky after hours.',dr:'~1.5 hrs west of Carlsbad — overnight Alamogordo or Las Cruces'},
+    {id:'n8',n:'White Sands — sled the dunes',tg:['star'],sq:false,d:'Rent sleds at the visitor center gift shop. Kids and grandpas will be launching themselves down dunes for an hour. This is not optional. This is the whole thing.',dr:'Inside White Sands NP — sleds $25 deposit, returnable'},
+    {id:'n9',n:'Truth or Consequences — hot springs + rockhound',tg:['hot','rock'],sq:true,d:'Natural hot springs on the Rio Grande in the town that renamed itself in 1950 to win a radio contest — and kept it. Soak at one of several bathhouses, then walk the Caballo Mountain washes for free BLM agate, jasper, and druzy quartz.',dr:'~1.5 hrs north of White Sands on I-25'},
+    {id:'n10',n:'Three Rivers Petroglyph Site',tg:['history','view'],sq:true,d:'Over 21,000 petroglyphs on a ridge north of Alamogordo — one of the largest petroglyph sites in the Southwest, Jornada Mogollon culture 900–1400 AD. Almost nobody goes. Free BLM. Easy walking.',dr:'~50 min north of Alamogordo on US-54'},
+  ]},
+  {id:'tx', ico:'🔥', t:'Trans-Pecos Texas — Marfa & Big Bend', s:'Desert art colony, unexplained lights, and the most remote national park', stops:[
+    {id:'t1',n:'Frama Coffee & Pastry — Marfa TX',tg:['star','coffee','bakery'],sq:false,d:'One of the best espresso programs in the Trans-Pecos — serious, intentional coffee in a seriously remote place. Pastries rotate daily and are genuinely excellent. The kind of place you don\'t expect to find here and don\'t want to leave.',dr:'Downtown Marfa'},
+    {id:'t2',n:'Food Shark — Marfa TX',tg:['star','eat'],sq:false,d:'Legendary Marfa lunch truck serving Mediterranean-inspired food in the Chihuahuan Desert. The Marfalafel is famous. An absurdly good food program for a town of 1,700.',dr:'Downtown Marfa — weekday lunch, check current hours'},
+    {id:'t3',n:'Chinati Foundation',tg:['star','art'],sq:false,d:'Donald Judd moved here in the 1970s and created one of the most significant permanent art installations on Earth — 100 large aluminum boxes in 15 former artillery sheds, positioned to interact with the desert light all day long. Also Dan Flavin neon light installations. One of the most important art sites in America, and it\'s in a town of 1,700.',dr:'In Marfa — tours Wed–Sun, book at chinati.org'},
+    {id:'t4',n:'Marfa Lights viewing area',tg:['alien','weird','view'],sq:false,d:'Unexplained lights appearing on the horizon southeast of town most nights. The official viewing pullout is 9 miles east on US-90. Nobody knows what they are. Atmospheric refraction? Alien craft? Worth sitting out for an hour after dark with snacks.',dr:'9 miles east of Marfa on US-90 — free, always open'},
+    {id:'t5',n:'Prada Marfa',tg:['art','weird'],sq:true,d:'A permanent fake Prada storefront in the middle of the desert, stocked with real Prada goods that are never for sale. Elmgreen & Dragset, 2005. Absurd and brilliant. The kiddo will have opinions.',dr:'37 miles NW of Marfa on US-90'},
+    {id:'t6',n:'Davis Mountains Scenic Loop & McDonald Observatory',tg:['drive','view','dark'],sq:true,d:'Texas\'s most scenic mountain drive — TX-118 through Fort Davis and McDonald Observatory at 6,791 feet. The observatory has public star parties. Beautiful high desert with unexpected greenery.',dr:'TX-118 from Marfa — makes a good loop before heading south to Big Bend'},
+    {id:'t7',n:'Big Bend — Santa Elena Canyon',tg:['star','nature'],sq:false,d:'The Rio Grande cutting through 1,500-foot limestone walls. The trail is 1.7 miles round trip and is one of the great short hikes in any national park. The canyon is so narrow it blocks midday sun. You can see Mexico from inside the canyon. Wade across the river in places.',dr:'~70 miles south of Marfa inside Big Bend NP'},
+    {id:'t8',n:'Big Bend — Chisos Basin Lodge',tg:['star','nature'],sq:false,d:'Mountains inside the desert park — the only hotel inside the park. High elevation means cooler temperatures than the desert floor. The Basin Loop trail has remarkable views in every direction.',dr:'Inside Big Bend NP — book early at recreation.gov'},
+    {id:'t9',n:'Big Bend — Rio Grande Hot Springs',tg:['hot'],sq:true,d:'A 105°F natural hot spring right on the Rio Grande with Mexico on the opposite bank. Ruins of a 1920s resort and bathhouse are right there. Soak in the rock pool and look across the river.',dr:'Inside Big Bend NP — dirt road, high clearance helpful'},
+    {id:'t10',n:'Big Bend — rowboat to Mexico (Boquillas)',tg:['weird','history'],sq:true,d:'A man rows you across the Rio Grande for a couple dollars to the tiny village of Boquillas del Carmen. Get a cold drink, buy a handmade wire sculpture from a local artist, be in Mexico for an hour. Fully legal official border crossing.',dr:'Inside Big Bend NP — Boquillas Canyon overlook road'},
+  ]},
+  {id:'az', ico:'🎨', t:'Arizona — Tucson & the Coronado Trail', s:'Italian gelato in the desert, world-class coffee, fire agate, and mountain switchbacks', stops:[
+    {id:'a1',n:'Viro\'s Real Italian Bakery — Tucson',tg:['star','bakery'],sq:false,d:'Open since 1986, bringing authentic Sicilian pastry traditions to the Sonoran Desert. The dessert case has been described by multiple reviewers as "the eighth wonder of the world." Homemade gelato. Lobster tails, cannoli, pistachio cookies, fresh pasta. Owner Vito Croce has been on Tucson\'s east side for over 20 years. A complete and total surprise.',dr:'Tucson east side — call ahead for hours, limited seating'},
+    {id:'a2',n:'Barrio Bread — Tucson',tg:['star','bakery'],sq:true,d:'James Beard Award for Outstanding Baker 2022. Named best bakery in Arizona for 2025/2026. Owner Don Guerra uses local heritage grain. Baguettes, focaccia, Cubano rolls, Old World rye, Einkorn loaves. Open Tue–Sat 9am–1pm or until sold out.',dr:'18 S. Eastbourne Ave., Tucson — get there early, it sells out'},
+    {id:'a3',n:'Presta Coffee Roasters — Tucson',tg:['star','coffee'],sq:false,d:'Named one of the World\'s 100 Best Coffee Shops in 2025. Three Tucson locations — roastery at 2502 N. 1st Ave. and the Mercado San Agustin courtyard location are both excellent. For the coffee snob in the group, this is the destination stop.',dr:'Tucson — roastery at 2502 N. 1st Ave. or Mercado San Agustin courtyard'},
+    {id:'a4',n:'Maynard Dixon Museum — Tucson',tg:['star','art'],sq:false,d:'The only museum in the world solely dedicated to Dixon\'s life and work. Just expanded to 3,000 sq ft. His actual easel, walking cane, original oils, drawings, letters, and poetry. A recreation of his San Francisco studio. The documentary on-site is essential — watch it first. Tue–Sat 10am–5pm.',dr:'6866 E. Sunrise Dr., Suite 150, Tucson — (520) 722-7798'},
+    {id:'a5',n:'Mission San Xavier del Bac',tg:['star','history'],sq:false,d:'The White Dove of the Desert — arguably the finest Spanish colonial mission in North America, still an active O\'odham parish. Built 1783–1797. The white-plastered baroque interior is extraordinary. The hilltop view of the Sonoran Desert from the chapel courtyard is beautiful.',dr:'15 min south of downtown Tucson on San Xavier Rd'},
+    {id:'a6',n:'Bisbee — Queen Mine underground tour',tg:['star','ghost','cave'],sq:false,d:'Old copper mining city built into the Mule Mountains canyon walls. The Queen Mine tour goes underground by mine cart — hard hat, headlamp, complete experience. The town itself is wonderfully strange: Victorian buildings on stairway streets, artists, great food. One of Arizona\'s finest ghost towns.',dr:'~1.5 hrs SE of Tucson — book at queenminetour.com'},
+    {id:'a7',n:'Tombstone — OK Corral & Boot Hill',tg:['ghost','history'],sq:true,d:'Yes, it\'s touristy. It\'s also genuinely historic. The OK Corral, Bird Cage Theatre, and Boot Hill Graveyard take a few good hours. The Courthouse State Historic Park is the most substantive stop.',dr:'~1 hr SE of Tucson on AZ-80'},
+    {id:'a8',n:'Coronado Trail — US-191 north',tg:['star','drive','view'],sq:false,d:'One of the great unsung scenic drives in America — 123 miles of switchbacks through the Apache-Sitgreaves National Forest, climbing to nearly 9,000 feet before descending to the desert. Mountain meadows, canyon overlooks, Apache country, almost zero traffic. Named for the conquistador who passed through in 1540. Fill the tank in Clifton before you go up.',dr:'From Clifton/Safford — allow 3–4 hrs for the road itself, more for stops'},
+    {id:'a9',n:'Clifton AZ — jail carved in the cliff face',tg:['ghost','history'],sq:false,d:'Genuine old copper-mining town in a canyon. The old jail was carved directly into the cliff face above the river. The Morenci mine above town is one of the largest open-pit copper mines on Earth — visible from road overlooks. Good lunch stop.',dr:'South end of the Coronado Trail'},
+    {id:'a10',n:'Black Hills Rockhound Area — fire agate',tg:['rock','star'],sq:false,d:'Free BLM fire agate site near Safford, right off Hwy 191 on the Coronado Trail route. Fire agate only occurs in Arizona, southern California, and Mexico. No permit needed. Dig within 2 feet of the surface. The nodules look like dull brown grapes — spray with water to test for the iridescent fire inside. Early morning only in June.',dr:'~20 miles NE of Safford off Hwy 191 near milepost 141'},
+  ]},
+  {id:'sw', ico:'🏰', t:'Four Corners — Ancient World', s:'Canyon de Chelly, Ship Rock, Monument Valley, the great ancestral homeland', stops:[
+    {id:'s1',n:'Canyon de Chelly — rim drive',tg:['star','history','view'],sq:false,d:'Continuously inhabited for nearly 5,000 years and still home to Navajo families today. The White House Ruins trail descends 600 feet to the canyon floor below a cliff dwelling tucked into the rock. The rim drive has 12 overlooks, each with a distinct view. Spider Rock — two sandstone spires rising 800 feet from the canyon floor — is the most dramatic.',dr:'~2 hrs from Safford — visitor center in Chinle AZ'},
+    {id:'s2',n:'Canyon de Chelly — Navajo guide to canyon floor',tg:['star','ranger'],sq:true,d:'The canyon floor requires a Navajo guide — worth every penny. The petroglyphs invisible from the rim, the full scale of the walls from below, the living canyon with farming families still working it. Book in advance through the visitor center.',dr:'Contact Canyon de Chelly visitor center or authorized Navajo tour operators'},
+    {id:'s3',n:'Hubbell Trading Post — Ganado AZ',tg:['history'],sq:false,d:'Oldest operating trading post on the Navajo Nation, established 1878. Still selling rugs, jewelry, crafts. The Hubbell family home is open for tours. A National Historic Site that genuinely feels like time stopped.',dr:'15 min from Canyon de Chelly on AZ-264'},
+    {id:'s4',n:'Ship Rock — Tsé Bit\'a\'í',tg:['star','view','nature'],sq:false,d:'A volcanic neck rising 1,583 feet from absolutely flat desert floor — the hardened magma plug left after a volcano eroded away over 30 million years. Sacred to the Navajo. Drive dirt roads right to the base. The volcanic dikes radiating outward are as dramatic as the spire itself. Nothing else on Earth looks like this.',dr:'Near Shiprock NM — just off US-491, ~1.5 hrs north of Canyon de Chelly'},
+    {id:'s5',n:'Monument Valley — The View Hotel',tg:['star','view'],sq:false,d:'Designed so most rooms face the Mittens and Merrick Butte directly — you wake up and the spires are just there. Sunrise and sunset from this hotel are among the great travel experiences of the American West. On the Navajo Nation.',dr:'Book immediately once you have dates — sells out in summer. Views are worth the extra cost.'},
+    {id:'s6',n:'Monument Valley — Navajo jeep tour',tg:['star','ranger'],sq:false,d:'The valley floor requires a Navajo guide. Ancient ruins, the Wave formation, the Ear of the Wind — none of it visible from the road. Two to three hour tours available. The kiddo will never forget this.',dr:'Book at The View Hotel front desk or in advance through Navajo-owned tour operators'},
+    {id:'s7',n:'Hovenweep NM — canyon rim towers',tg:['history','star'],sq:true,d:'Ancestral Puebloan towers and stone structures on canyon rims circa 1200 AD. Almost no visitors. The Little Ruin Canyon loop visits six tower complexes in 2 miles. The towers align to solstice sunrise and sunset. Haunting and beautiful.',dr:'~1.5 hrs east of Monument Valley — nps.gov/hove'},
+    {id:'s8',n:'Natural Bridges NM — dark sky',tg:['dark','star','history'],sq:true,d:'Three massive natural stone bridges with ancestral Puebloan ruins beneath two of them. The first International Dark Sky Park in the world. Ranger star programs. The night sky here is extraordinary.',dr:'~1.5 hrs north of Monument Valley on UT-95'},
+  ]},
+  {id:'gc', ico:'🌊', t:'Grand Canyon & Page', s:'The big one, slot canyons, and the great bend in the river', stops:[
+    {id:'g1',n:'Grand Canyon — Desert View Watchtower',tg:['star','history','view'],sq:false,d:'Enter from the east via Desert View — far less congested than the main village. Mary Colter\'s 1932 Watchtower is a masterpiece of Southwest architecture, built to echo ancestral Puebloan designs. Views stretch across the canyon and the Painted Desert beyond.',dr:'~2.5 hrs from Monument Valley via US-160 west and US-89 north'},
+    {id:'g2',n:'Grand Canyon — South Rim',tg:['star','view'],sq:false,d:'Mather Point, Yavapai Point, Bright Angel. Free shuttle buses on the west end — take the first bus of the day. Hermit\'s Rest at the end of the line is another Mary Colter building. The Colorado River is 4,500 feet below you. Let that sink in.',dr:'Inside Grand Canyon NP — get on shuttles early, all summer crowds'},
+    {id:'g3',n:'Grand Canyon Railway — Williams to the Rim',tg:['train','star'],sq:true,d:'Vintage steam or diesel train from Williams to the South Rim — 65 miles each way, cowboy entertainment on board, dramatic canyon arrival. One of the great American train rides. Grandpa will love this enormously.',dr:'Departs Williams depot ~9:30am daily — book at thetrain.com, sells out'},
+    {id:'g4',n:'Vermilion Cliffs — condors and color',tg:['view','nature'],sq:true,d:'3,000-foot red and orange cliffs along US-89A between Page and Kanab. California condors were reintroduced here — often visible from pull-offs along the road. Stunning cliff scenery all along this stretch.',dr:'US-89A between Page and Kanab'},
+    {id:'g5',n:'Antelope Canyon — Upper or Lower',tg:['star','nature'],sq:false,d:'The most photographed slot canyon in the world — narrow sandstone walls sculpted by flash floods into flowing curves, with shafts of light dropping from above. Guided Navajo tours only. Upper Antelope is easier to walk; Lower Antelope is more dramatic.',dr:'Page AZ — book 2-3 weeks ahead in summer, both fill up. Upper: tsebiighani.navajonationparks.org'},
+    {id:'g6',n:'Horseshoe Bend',tg:['star','view'],sq:false,d:'The Colorado River making a 270-degree horseshoe bend 1,000 feet below — one of the most dramatic viewpoints in the Southwest. 1.5-mile round-trip walk from the highway. Afternoon light turns the canyon walls orange.',dr:'5 min south of Page AZ on US-89 — parking fee only'},
+  ]},
+  {id:'ut', ico:'🌲', t:'Utah Canyon Country — Zion to Capitol Reef', s:'Hoodoos, slot canyons, pioneer orchards, the goblins, and a Beard-nominated farm', stops:[
+    {id:'u1',n:'Kanab UT — Little Hollywood',tg:['history'],sq:true,d:'Hundreds of Westerns and TV shows filmed here — Gunsmoke, Planet of the Apes, The Lone Ranger. The Western Legends Museum is fun. Excellent overnight base between Grand Canyon and Zion.',dr:'~1 hr north of Page on US-89'},
+    {id:'u2',n:'Coral Pink Sand Dunes SP',tg:['nature','view'],sq:true,d:'Pink sand dunes in a bowl of Navajo sandstone — completely different color palette from White Sands. ATV rentals available. Good 45-minute stop.',dr:'Off US-89 between Kanab and Zion — 9 miles on Hancock Road'},
+    {id:'u3',n:'Zion NP — main canyon',tg:['star','nature'],sq:false,d:'The Virgin River has carved a cathedral canyon through Navajo sandstone with walls rising 2,000 feet. Mandatory free shuttle in summer — get on the first bus of the day. The scale inside the canyon is staggering.',dr:'~45 min from Kanab via US-89 and UT-9'},
+    {id:'u4',n:'Zion Narrows — wade bottom up',tg:['star','swim'],sq:false,d:'Wade upstream through the Virgin River between slot canyon walls just 20 feet apart. No permit needed for the bottom-up approach. Rent canyoneering waterproof boots in Springdale. The kiddo will love every single step of this.',dr:'Inside Zion — end of the Riverside Walk paved trail'},
+    {id:'u5',n:'Maynard Dixon Home & Studio — Mount Carmel UT',tg:['star','art'],sq:false,d:'Dixon\'s actual home and working studio on UT-9 — directly on the road between Zion\'s east entrance and US-89, zero detour required. Run by the Thunderbird Foundation. His painting cabin on the high bluff, the hillside where his ashes are scattered. This is the place behind the Tucson collection.',dr:'On UT-9 between Zion east entrance and US-89 — call ahead: (435) 648-2288'},
+    {id:'u6',n:'Bryce Canyon NP — the hoodoo amphitheater',tg:['star','view','nature'],sq:false,d:'Not a canyon — an amphitheater of thousands of orange and red limestone hoodoos eroding from the Paunsaugunt Plateau. More vivid color than anywhere else in Utah. 8,000–9,000 ft elevation means noticeably cooler than the desert below. Sunrise Point is extraordinary.',dr:'~1.5 hrs from Zion via US-89'},
+    {id:'u7',n:'Bryce Canyon — dark sky stargazing',tg:['dark','star'],sq:true,d:'One of the darkest skies in the lower 48 — on a moonless night the Milky Way casts visible shadows. The annual Astronomy Festival draws professional astronomers. Rangers run evening star programs all summer long.',dr:'Inside Bryce Canyon NP — evening programs at visitor center amphitheater'},
+    {id:'u8',n:'UT-12 Scenic Byway',tg:['star','drive','view'],sq:false,d:'Arguably the most beautiful highway in Utah — 124 miles from Bryce through Red Canyon, past Anasazi State Park, over the Hogback (road runs along an actual ridge spine with 1,000-ft drop-offs on both sides), through Grand Staircase-Escalante. Do not rush this road. It is the destination.',dr:'Bryce Canyon to Torrey — allow 3–4 hours, stop at every overlook'},
+    {id:'u9',n:"Hell's Backbone Grill — Boulder UT",tg:['eat','star'],sq:false,d:'The most remote fine-dining restaurant in the continental United States, in a town of 240 people. James Beard Outstanding Restaurant nominee. Farm-to-table Four Corners cuisine from their own six-acre organic farm out back. Founded by former Grand Canyon river guides who taught themselves to cook. Reserve ahead — packed every night.',dr:'Boulder UT on UT-12 — directly on the scenic byway. hellsbackbonegrill.com'},
+    {id:'u10',n:'Capitol Reef NP + Fruita orchards',tg:['star','history','eat'],sq:false,d:'The Waterpocket Fold — a 100-mile wrinkle in the Earth\'s crust. The pioneer settlement of Fruita: working orchards (cherries and early apricots in June — pay by the pound on the honor system at the trees), a one-room schoolhouse, a historic farmhouse, and petroglyphs on nearly every canyon wall. Far fewer visitors than Zion or Bryce.',dr:'~2 hrs from Bryce on UT-12 — Torrey UT has excellent lodging and restaurants nearby'},
+    {id:'u11',n:'Goblin Valley SP',tg:['star','weird','nature'],sq:false,d:'A bowl of thousands of mushroom-shaped Entrada sandstone hoodoos you can scramble among freely with no trails. Kids go completely feral with delight. A Star Wars filming location that looks exactly like it. Grandpa and the kiddo will be equally enchanted by this place.',dr:'~40 min from Capitol Reef on UT-24 near Hanksville'},
+  ]},
+  {id:'ch', ico:'🏛️', t:'Ancient New Mexico & home via the San Juans', s:'Chaco Canyon, Aztec, Durango, Silverton, the Million Dollar Highway, Ouray', stops:[
+    {id:'h1',n:'Edge of the Cedars Museum — Blanding UT',tg:['history','art'],sq:true,d:'Small but excellent Ancestral Puebloan artifact museum with an excavated great house on the grounds. One of the best context-setters for everything you\'ve seen on this trip. Almost nobody stops here.',dr:'Blanding UT on US-191'},
+    {id:'h2',n:'Chaco Culture NHP',tg:['star','history','dark'],sq:false,d:'The political and ceremonial capital of the Ancestral Puebloan world — massive great houses aligned to solar and lunar events, a road system stretching hundreds of miles, the largest pre-Columbian buildings north of Mexico. Remote (16 miles dirt road) which keeps crowds away and makes it feel genuinely sacred. One of those places that changes your sense of what happened here before Europeans arrived.',dr:'Near Nageezi NM — high clearance vehicle strongly recommended; fill gas in Nageezi; road impassable when wet'},
+    {id:'h3',n:'Chaco — dark sky astronomy program',tg:['dark','star','ranger'],sq:true,d:'Chaco is an International Dark Sky Park and one of the darkest sites in the country. Rangers run evening telescope programs. If you can time an overnight here, the stargazing is extraordinary.',dr:'Inside Chaco Culture NHP — check nps.gov/chcu for program schedule'},
+    {id:'h4',n:'Aztec Ruins NM — reconstructed great kiva',tg:['star','history'],sq:false,d:'The only fully reconstructed great kiva you can walk into anywhere. The 50-foot circular ceremonial chamber is surprisingly moving to stand inside. 30-minute stop, completely worth it. Despite the name, it\'s Ancestral Puebloan.',dr:'Aztec NM near Farmington — ~1.5 hrs from Chaco'},
+    {id:'h5',n:'81301 Coffee House — Durango CO',tg:['coffee','star'],sq:false,d:'The most-mentioned specialty coffee shop in Durango — excellent espresso program, good pastries, cozy Victorian building on Main Ave. After days of scenic but rustic road coffee, the coffee snob gets their proper moment here.',dr:'Downtown Durango on Main Ave — 81301coffeehouse.com'},
+    {id:'h6',n:'Durango & Silverton Narrow Gauge Railroad',tg:['star','train'],sq:false,d:'A coal-fired steam train through the Animas River Canyon to Silverton — 45 miles each way, much of the route with no road access. One of the great train rides in the American West. Grandpa will love this enormously. The whole family will.',dr:'Departs Durango depot at 8:45am daily — book at durangotrain.com, sells out'},
+    {id:'h7',n:'Silverton CO — nearly intact Victorian mining town',tg:['ghost','history','star'],sq:false,d:'A nearly intact Victorian silver-mining town at 9,318 feet surrounded by 13,000-ft peaks. The boardwalk main street is largely unchanged from the 1880s. The San Juan County Historical Society Museum is excellent. Arrive by train or drive US-550 from Durango.',dr:'Top of the Million Dollar Highway, or end of the train line from Durango'},
+    {id:'h8',n:'Million Dollar Highway — Silverton to Ouray',tg:['star','drive','view'],sq:false,d:'25 miles of switchbacks along cliff faces with no guardrails on many sections, waterfalls crossing the road, 11,000-ft Red Mountain Pass, mine tailings of brilliant orange and red from the old silver operations. Drive it northbound (Silverton to Ouray) so you\'re on the inside lane at the cliff edges. Take it slow.',dr:'US-550 between Silverton and Ouray — Bear Creek Falls pull-off halfway is worth stopping for'},
+    {id:'h9',n:'Ouray CO — hot springs pool',tg:['star','hot','history'],sq:false,d:'A Victorian mining town in a box canyon with 13,000-ft peaks on three sides. The natural geothermal hot springs pool is open year-round. Box Canyon Falls — a dramatic slot canyon waterfall — is a 5-minute walk from Main Street. You have earned this soak after this trip.',dr:'Downtown Ouray — ouraycolorado.com for pool info'},
+    {id:'h10',n:'Black Canyon of the Gunnison NP',tg:['view','nature'],sq:true,d:'Darker walls and in some ways more dramatic than the Grand Canyon — ancient Precambrian rock, extraordinary shadows. Near Montrose, 30 minutes off US-50. A final exclamation point before Denver.',dr:'~1 hr from Ouray near Montrose on US-50 — nps.gov/blca'},
+  ]},
+  {id:'ca', ico:'🚗', t:'Kiddo & you — continuing to California', s:'After Grandpa flies out — big trees, coastline, and Tahoe', stops:[
+    {id:'ca1',n:'Bonneville Salt Flats',tg:['view','weird'],sq:true,d:'White salt flat where land speed records are set — completely flat horizon in every direction. Surreal and strange. Easy highway pull-off on I-80 west of Salt Lake.',dr:'~1.5 hrs west of SLC on I-80'},
+    {id:'ca2',n:'Great Basin NP — bristlecones & Lehman Caves',tg:['cave','nature','dark'],sq:true,d:'4,000-year-old bristlecone pine trees and gorgeous Lehman Caves guided tour. Almost nobody goes. Wheeler Peak Glacier — southernmost in the US. US-50, the Loneliest Road. International Dark Sky Park.',dr:'Eastern Nevada on US-50 — nps.gov/grba'},
+    {id:'ca3',n:'Mono Lake — tufa towers',tg:['star','view','nature'],sq:false,d:'Ancient saline lake 760,000 years old with alien calcium carbonate tufa towers rising from the water. The light and reflections are extraordinary. Migratory birds in huge numbers. US-395 near Lee Vining.',dr:'Eastern Sierra on US-395 near Lee Vining'},
+    {id:'ca4',n:'Sequoia NP — General Sherman Tree',tg:['star','nature'],sq:false,d:'The largest living thing on Earth by volume — 275 feet tall, 36 feet in diameter, approximately 2,200 years old. It was already ancient when Rome fell. The scale is genuinely incomprehensible until you\'re standing next to it.',dr:'~3 hrs from Mono Lake via US-395 and CA-168 west'},
+    {id:'ca5',n:'Kings Canyon — deepest canyon in North America',tg:['star','view','nature'],sq:true,d:'Deeper than the Grand Canyon. The scenic byway drops 2,600 feet to the canyon floor through switchbacks. The Zumwalt Meadow loop (2 miles, easy, beautiful) at the bottom is one of the best easy hikes in the Sierra.',dr:'Adjacent to Sequoia NP — check road conditions for CA-180'},
+    {id:'ca6',n:'Avenue of the Giants — coastal redwoods',tg:['star','nature'],sq:false,d:'32 miles of old-growth coastal redwood grove — trees 300+ feet tall and up to 1,500 years old. The canopy is so dense it feels like a cathedral. The Founders Grove has the Dyerville Giant, one of the tallest trees ever recorded before it fell.',dr:'US-101 Humboldt County — ~3-4 hrs north from Sequoia via CA-99/I-5'},
+    {id:'ca7',n:'CA-1 — Pacific Coast Highway',tg:['star','drive','view'],sq:false,d:'The most dramatic coastal road in America. McWay Falls drops onto an inaccessible beach (which makes it more beautiful). Elephant seals lounging at San Simeon. Pull over constantly. Go as slow as you can.',dr:'Central California coast between Carmel and San Luis Obispo'},
+    {id:'ca8',n:'Lake Tahoe',tg:['nature','swim'],sq:false,d:'One of the most beautiful alpine lakes in the world — 22 miles long, 1,645 feet deep, water so clear you can see 70 feet down. A perfect final destination.',dr:'Eastern Sierra — 3 hrs from San Francisco, 45 min from Reno airport'},
+  ]},
+];
+
+let ckd = new Set(), curF = 'all';
+
+function initLegend() {
+  const TYPES = [
+    {k:'star',l:'⭐ Must-do'},{k:'eat',l:'🍔 Local eats'},{k:'bakery',l:'🥐 Bakery'},
+    {k:'coffee',l:'☕ Coffee'},{k:'hot',l:'♨️ Hot spring'},{k:'swim',l:'🏊 Swim hole'},
+    {k:'dark',l:'🌌 Dark sky'},{k:'view',l:'🏔️ Scenic pull-off'},{k:'rock',l:'🪨 Rockhound'},
+    {k:'cave',l:'🔦 Cave'},{k:'ghost',l:'👻 Ghost town'},{k:'train',l:'🚂 Train'},
+    {k:'art',l:'🎨 Art/museum'},{k:'alien',l:'🛸 UFO/Alien'},{k:'weird',l:'🤪 Weird Americana'},
+    {k:'ranger',l:'🌲 Ranger program'},{k:'nature',l:'🌿 Nature'},{k:'history',l:'📜 History'},
+    {k:'drive',l:'🛣️ Scenic drive'}
+  ];
+  const g = document.getElementById('legend-grid');
+  TYPES.forEach(t => {
+    const span = document.createElement('span');
+    span.className = 'tg tg-'+t.k;
+    span.style.fontSize = '0.68rem';
+    span.style.padding = '2px 8px';
+    span.textContent = t.l;
+    g.appendChild(span);
+  });
+}
+
+function initFilters() {
+  const row = document.getElementById('frow');
+  FTYPES.forEach(f => {
+    const b = document.createElement('button');
+    b.className = 'fb' + (f.k === 'all' ? ' on' : '');
+    b.textContent = f.l;
+    b.onclick = () => setF(f.k, b);
+    row.appendChild(b);
+  });
+}
+
+function buildAll() {
+  const c = document.getElementById('legs');
+  c.innerHTML = '';
+  DATA.forEach(leg => {
+    const div = document.createElement('div');
+    div.className = 'leg';
+    div.id = 'L' + leg.id;
+
+    const hdr = document.createElement('div');
+    hdr.className = 'leg-header';
+    hdr.innerHTML = `<span class="leg-icon">${leg.ico}</span><div class="leg-text"><div class="leg-title">${leg.t}</div><div class="leg-sub">${leg.s}</div></div><span class="leg-badge empty" id="B${leg.id}">0 checked</span><span class="leg-chevron" id="C${leg.id}">▾</span>`;
+    hdr.onclick = () => togLeg(leg.id);
+
+    const body = document.createElement('div');
+    body.className = 'leg-body';
+    body.id = 'BD' + leg.id;
+    body.style.display = 'none';
+
+    const main = leg.stops.filter(s => !s.sq);
+    const side = leg.stops.filter(s => s.sq);
+
+    if (main.length) {
+      const l = document.createElement('div');
+      l.className = 'slbl';
+      l.textContent = 'Main stops';
+      body.appendChild(l);
+      const g = document.createElement('div');
+      g.className = 'sg';
+      main.forEach(s => g.appendChild(mkCard(s)));
+      body.appendChild(g);
+    }
+    if (side.length) {
+      const l = document.createElement('div');
+      l.className = 'slbl';
+      l.textContent = 'Side quests — take them or leave them';
+      body.appendChild(l);
+      const g = document.createElement('div');
+      g.className = 'sg';
+      side.forEach(s => g.appendChild(mkCard(s)));
+      body.appendChild(g);
+    }
+
+    div.appendChild(hdr);
+    div.appendChild(body);
+    c.appendChild(div);
+  });
+  updStats();
+  applyF();
+  // Open first leg by default
+  togLeg(DATA[0].id);
+}
+
+function mkCard(s) {
+  const c = document.createElement('div');
+  c.className = 'sc' + (s.sq ? ' sq' : '') + (ckd.has(s.id) ? ' ck' : '');
+  c.id = 'SC' + s.id;
+  c.setAttribute('data-tg', (s.tg || []).join(','));
+
+  const chkEl = document.createElement('div');
+  chkEl.className = 'chk';
+  chkEl.innerHTML = ckd.has(s.id) ? '✓' : '';
+
+  const info = document.createElement('div');
+  info.className = 'si';
+
+  const tgsHtml = (s.tg || []).map(t => `<span class="tg tg-${t}">${TL[t] || t}</span>`).join('');
+  info.innerHTML = `
+    <div class="stop-top"><span class="sn">${s.n}</span></div>
+    <div class="tgs">${tgsHtml}</div>
+    <div class="sdesc">${s.d}</div>
+    <div class="sdrv">${s.dr}</div>
+  `;
+
+  c.appendChild(chkEl);
+  c.appendChild(info);
+  c.onclick = () => togStop(s.id);
+  return c;
+}
+
+function togStop(id) {
+  if (ckd.has(id)) ckd.delete(id);
+  else ckd.add(id);
+  const c = document.getElementById('SC' + id);
+  if (!c) return;
+  const chkEl = c.querySelector('.chk');
+  if (ckd.has(id)) { c.classList.add('ck'); chkEl.innerHTML = '✓'; }
+  else { c.classList.remove('ck'); chkEl.innerHTML = ''; }
+  updStats();
+  updBadges();
+  updPreview();
+}
+
+function togLeg(id) {
+  const body = document.getElementById('BD' + id);
+  const chev = document.getElementById('C' + id);
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  chev.classList.toggle('open', !isOpen);
+}
+
+function updStats() {
+  const all = DATA.flatMap(l => l.stops);
+  const stars = all.filter(s => (s.tg || []).includes('star'));
+  const fTags = ['eat', 'bakery', 'coffee', 'diner'];
+  const food = all.filter(s => (s.tg || []).some(t => fTags.includes(t)));
+  document.getElementById('s-ck').textContent = ckd.size;
+  document.getElementById('s-st').textContent = stars.filter(s => ckd.has(s.id)).length + ' / ' + stars.length;
+  document.getElementById('s-fd').textContent = food.filter(s => ckd.has(s.id)).length;
+  document.getElementById('s-tt').textContent = all.length;
+}
+
+function updBadges() {
+  DATA.forEach(leg => {
+    const n = leg.stops.filter(s => ckd.has(s.id)).length;
+    const b = document.getElementById('B' + leg.id);
+    if (b) {
+      b.textContent = n === 0 ? '0 checked' : n + ' checked';
+      b.className = 'leg-badge' + (n === 0 ? ' empty' : '');
+    }
+  });
+}
+
+function setF(k, btn) {
+  curF = k;
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  applyF();
+}
+
+function applyF() {
+  DATA.forEach(leg => leg.stops.forEach(s => {
+    const c = document.getElementById('SC' + s.id);
+    if (!c) return;
+    c.style.display = (curF === 'all' || (s.tg || []).includes(curF)) ? '' : 'none';
+  }));
+}
+
+function chkAll() {
+  DATA.forEach(leg => leg.stops.forEach(s => {
+    ckd.add(s.id);
+    const c = document.getElementById('SC' + s.id);
+    if (c) { c.classList.add('ck'); const ch = c.querySelector('.chk'); if (ch) ch.innerHTML = '✓'; }
+  }));
+  updStats(); updBadges(); updPreview();
+}
+
+function clrAll() {
+  ckd.clear();
+  DATA.forEach(leg => leg.stops.forEach(s => {
+    const c = document.getElementById('SC' + s.id);
+    if (c) { c.classList.remove('ck'); const ch = c.querySelector('.chk'); if (ch) ch.innerHTML = ''; }
+  }));
+  updStats(); updBadges();
+  document.getElementById('rp').style.display = 'none';
+}
+
+function chkCat(tags) {
+  clrAll();
+  DATA.forEach(leg => leg.stops.forEach(s => {
+    if ((s.tg || []).some(t => tags.includes(t))) {
+      ckd.add(s.id);
+      const c = document.getElementById('SC' + s.id);
+      if (c) { c.classList.add('ck'); const ch = c.querySelector('.chk'); if (ch) ch.innerHTML = '✓'; }
+    }
+  }));
+  updStats(); updBadges(); updPreview();
+}
+
+function chkStars() { chkCat(['star']); }
+function chkFood() { chkCat(['eat', 'bakery', 'coffee', 'diner']); }
+function chkHot() { chkCat(['hot', 'swim']); }
+function chkDark() { chkCat(['dark']); }
+
+function updPreview() {
+  const rp = document.getElementById('rp');
+  const stops = DATA.flatMap(l => l.stops).filter(s => ckd.has(s.id));
+  if (!stops.length) { rp.style.display = 'none'; return; }
+  rp.style.display = 'block';
+  document.getElementById('rp-stops').innerHTML = stops.map(s => `<span class="act">${s.n}</span>`).join(' <span style="color:#aaa"> › </span> ');
+}
+
+initLegend();
+initFilters();
+buildAll();
+</script>
+</body>
+</html>
