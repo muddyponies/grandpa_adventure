@@ -1,4 +1,4 @@
-[index.html](https://github.com/user-attachments/files/29318819/index.html)
+[index.html](https://github.com/user-attachments/files/29319686/index.html)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -331,6 +331,320 @@ body {
 .legend-title { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
 .legend-grid { display: flex; flex-wrap: wrap; gap: 6px; }
 
+/* ── Notes ── */
+.note-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  transition: color 0.12s;
+}
+.note-toggle:hover { color: var(--rust); }
+.note-toggle.has-note { color: var(--rust-mid); font-weight: 600; }
+.note-toggle .nt-icon { font-size: 0.75rem; transition: transform 0.15s; }
+.note-toggle.open .nt-icon { transform: rotate(90deg); }
+.note-area {
+  display: none;
+  margin-top: 6px;
+}
+.note-area.open { display: block; }
+.note-ta {
+  width: 100%;
+  min-height: 60px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: var(--ink);
+  background: var(--gold-lt);
+  resize: vertical;
+  line-height: 1.5;
+  transition: border-color 0.12s;
+}
+.note-ta:focus { outline: none; border-color: var(--rust); background: #fffef8; }
+.note-ta::placeholder { color: var(--muted); }
+
+/* ── Leg notes ── */
+.leg-note-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--gold-lt);
+  border-bottom: 0.5px solid var(--border);
+  cursor: pointer;
+}
+.leg-note-bar:hover { background: #fff8e6; }
+.leg-note-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+.leg-note-preview {
+  font-size: 0.72rem;
+  color: var(--ink-mid);
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+}
+.leg-note-area { display: none; }
+.leg-note-area.open {
+  display: block;
+  padding: 0 14px 12px;
+  background: var(--gold-lt);
+  border-bottom: 0.5px solid var(--border);
+}
+.leg-note-ta {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: var(--ink);
+  background: #fffef8;
+  resize: vertical;
+  line-height: 1.5;
+}
+.leg-note-ta:focus { outline: none; border-color: var(--rust); }
+.leg-note-ta::placeholder { color: var(--muted); }
+
+/* ── Tab navigation ── */
+.tab-nav {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1.5rem;
+  border: 0.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.tab-btn {
+  flex: 1;
+  padding: 11px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  border-right: 0.5px solid var(--border);
+  line-height: 1.3;
+}
+.tab-btn:last-child { border-right: none; }
+.tab-btn:hover { background: var(--rust-lt); color: var(--rust); }
+.tab-btn.active { background: var(--rust); color: #fff; font-weight: 600; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── Calendar ── */
+.cal-intro {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow);
+  font-size: 0.82rem;
+  color: var(--ink-mid);
+  line-height: 1.6;
+}
+.cal-intro strong { color: var(--rust); }
+.cal-day {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.cal-day-header {
+  display: flex;
+  align-items: stretch;
+  cursor: pointer;
+  user-select: none;
+}
+.cal-day-header:hover .cal-day-title-block { background: var(--sand-mid); }
+.cal-date-block {
+  min-width: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 10px;
+  flex-shrink: 0;
+}
+.cal-month { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; }
+.cal-day-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 600; line-height: 1; }
+.cal-dow { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75; margin-top: 2px; }
+.cal-day-title-block {
+  flex: 1;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: background 0.12s;
+  border-left: 0.5px solid var(--border);
+}
+.cal-day-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--ink); }
+.cal-day-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+.cal-chevron { font-size: 1rem; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+.cal-chevron.open { transform: rotate(180deg); }
+
+/* Day type color coding */
+.cal-day.drive .cal-date-block { background: var(--slate); color: #fff; }
+.cal-day.drive .cal-day-header:hover .cal-day-title-block { background: var(--slate-lt); }
+.cal-day.redwood .cal-date-block { background: var(--sage); color: #fff; }
+.cal-day.redwood .cal-day-header:hover .cal-day-title-block { background: var(--sage-lt); }
+.cal-day.tahoe .cal-date-block { background: var(--info); color: #fff; }
+.cal-day.tahoe .cal-day-header:hover .cal-day-title-block { background: var(--info-lt); }
+.cal-day.home .cal-date-block { background: var(--rust); color: #fff; }
+.cal-day.home .cal-day-header:hover .cal-day-title-block { background: var(--rust-lt); }
+.cal-day.slc .cal-date-block { background: var(--gold); color: #fff; }
+.cal-day.slc .cal-day-header:hover .cal-day-title-block { background: var(--gold-lt); }
+
+/* Day body */
+.cal-day-body { display: none; border-top: 0.5px solid var(--border); }
+.cal-day-body.open { display: block; }
+
+/* Sections within a day */
+.cal-section {
+  padding: 12px 16px;
+  border-bottom: 0.5px solid var(--border);
+}
+.cal-section:last-child { border-bottom: none; }
+.cal-section-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.cal-section-label .sl-icon { font-size: 0.9rem; }
+
+/* Section types */
+.cal-section.drive-section .cal-section-label { color: var(--slate); }
+.cal-section.drive-section { background: var(--slate-lt); }
+.cal-section.daytime .cal-section-label { color: var(--sage); }
+.cal-section.daytime { background: var(--sage-lt); }
+.cal-section.evening .cal-section-label { color: var(--rust); }
+.cal-section.evening { background: var(--rust-lt); }
+.cal-section.notes-section .cal-section-label { color: var(--gold); }
+.cal-section.notes-section { background: var(--gold-lt); }
+.cal-section.logistics .cal-section-label { color: var(--slate); }
+.cal-section.logistics { background: #F8F8F8; }
+
+/* Activity items */
+.cal-items { display: flex; flex-direction: column; gap: 7px; }
+.cal-item {
+  background: rgba(255,255,255,0.7);
+  border-radius: var(--radius-sm);
+  padding: 8px 11px;
+  border-left: 3px solid transparent;
+}
+.cal-item.must { border-left-color: var(--gold); }
+.cal-item.opt { border-left-color: var(--border-strong); opacity: 0.85; }
+.cal-item-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.cal-item-name .opt-badge {
+  font-size: 0.62rem;
+  background: var(--sand-mid);
+  color: var(--muted);
+  border-radius: 6px;
+  padding: 1px 5px;
+  font-weight: 500;
+}
+.cal-item-desc { font-size: 0.74rem; color: var(--ink-mid); line-height: 1.5; }
+.cal-item-note { font-size: 0.7rem; color: var(--muted); margin-top: 3px; font-style: italic; }
+
+/* Cal day note */
+.cal-note-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--gold-lt);
+  border-top: 0.5px solid var(--border);
+  cursor: pointer;
+  font-size: 0.72rem;
+}
+.cal-note-bar:hover { background: #fff8e0; }
+.cal-note-label { font-weight: 600; color: var(--gold); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+.cal-note-preview { color: var(--ink-mid); font-style: italic; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cal-note-area { display: none; padding: 0 16px 12px; background: var(--gold-lt); }
+.cal-note-area.open { display: block; }
+.cal-note-ta {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: var(--ink);
+  background: #fffef8;
+  resize: vertical;
+  line-height: 1.5;
+}
+.cal-note-ta:focus { outline: none; border-color: var(--rust); }
+.cal-note-ta::placeholder { color: var(--muted); }
+
+/* Drive log */
+.drive-log {
+  font-size: 0.75rem;
+  color: var(--ink-mid);
+  line-height: 1.7;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.drive-seg {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.drive-seg-route { font-weight: 600; color: var(--slate); }
+.drive-seg-detail { color: var(--muted); }
+.drive-total {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 0.5px solid var(--border);
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
 /* ── Print styles ── */
 @media print {
   body { background: #fff; font-size: 11px; }
@@ -348,6 +662,18 @@ body {
   .rp { display: none !important; }
   .slbl { display: flex !important; }
   .sg .sc:not(.ck) { display: none; }
+  .tab-nav { display: none !important; }
+  .tab-panel { display: block !important; }
+  .cal-day-body { display: block !important; }
+  .cal-note-area { display: block !important; }
+  .cal-note-ta { background: #fffef0 !important; border: 0.5px solid #ccc !important; min-height: unset !important; resize: none; }
+  .cal-item.opt { opacity: 1; }
+  .note-toggle { display: none !important; }
+  .note-area { display: block !important; }
+  .note-ta { background: #fffef0 !important; border: 0.5px solid #ccc !important; min-height: unset !important; resize: none; }
+  .leg-note-bar { cursor: default; }
+  .leg-note-area { display: block !important; }
+  .leg-note-ta { background: #fffef0 !important; border: 0.5px solid #ccc !important; min-height: unset !important; resize: none; }
 }
 
 @media (max-width: 600px) {
@@ -362,12 +688,22 @@ body {
   <h1>Grandpa Adventure — The Big One</h1>
   <p class="tagline">Denver · Southwest · Big Bend · Four Corners · Utah · Home</p>
   <div class="route-banner">
-    Denver &rarr; Raton &rarr; Roswell &rarr; Carlsbad &rarr; White Sands &rarr; Marfa &rarr; Big Bend &rarr; Tucson &rarr; Coronado Trail &rarr; Canyon de Chelly &rarr; Ship Rock &rarr; Monument Valley &rarr; Grand Canyon &rarr; Zion &rarr; Bryce &rarr; Capitol Reef &rarr; Chaco &rarr; Durango &rarr; Million Dollar Highway &rarr; Ouray &rarr; Denver
-    <br><span style="color:rgba(255,255,255,0.55);font-size:0.72rem;">Solid cards = main stops &nbsp;·&nbsp; Dashed cards = side quests &nbsp;·&nbsp; Check what sounds good, skip what doesn't &nbsp;·&nbsp; Print shows only checked stops</span>
+    Denver &rarr; Raton &rarr; Roswell &rarr; Carlsbad &rarr; White Sands &rarr; Marfa &rarr; Big Bend &rarr; Tucson &rarr; Coronado Trail &rarr; Canyon de Chelly &rarr; Ship Rock &rarr; Monument Valley &rarr; Grand Canyon &rarr; Zion &rarr; Bryce &rarr; Capitol Reef &rarr; Nine Mile Canyon &rarr; Helper &rarr; Salt Lake City
+    <br><span style="color:rgba(255,255,255,0.7);font-size:0.72rem;">Grandpa flies home from SLC &nbsp;&middot;&nbsp; Kiddo &amp; you continue west &rarr; Nevada &rarr; Sequoia &rarr; Redwoods &rarr; Coast &rarr; Tahoe</span>
+    <br><span style="color:rgba(255,255,255,0.45);font-size:0.68rem;">Solid cards = main stops &nbsp;&middot;&nbsp; Dashed = side quests &nbsp;&middot;&nbsp; Check what sounds good &nbsp;&middot;&nbsp; Print shows only checked stops</span>
   </div>
 </header>
 
 <main class="main">
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('planner',this)">🗺️ Stop Planner<br><span style="font-size:0.68rem;font-weight:400;opacity:0.8">Check stops, build your route</span></button>
+    <button class="tab-btn" onclick="showTab('grandpa',this)">👴 Grandpa Leg<br><span style="font-size:0.68rem;font-weight:400;opacity:0.8">July 3–11 day-by-day</span></button>
+    <button class="tab-btn" onclick="showTab('calendar',this)">🌲 California Leg<br><span style="font-size:0.68rem;font-weight:400;opacity:0.8">July 11–21 day-by-day</span></button>
+  </div>
+
+  <!-- ══ TAB 1: STOP PLANNER ══ -->
+  <div class="tab-panel active" id="tab-planner">
 
   <div class="stats">
     <div class="stat"><div class="stat-label">Stops checked</div><div class="stat-val" id="s-ck">0</div></div>
@@ -402,6 +738,38 @@ body {
   </div>
 
   <div id="legs"></div>
+
+  </div><!-- end tab-planner -->
+
+  <!-- ══ TAB 2: GRANDPA LEG ══ -->
+  <div class="tab-panel" id="tab-grandpa">
+    <div class="cal-intro">
+      <strong>July 3–11, 2025</strong> — The Grandpa chapter. Flies into Denver July 3rd, 2 rest days, hits the road July 5th.
+      6 nights: Denver → Durango → Carlsbad → White Sands → Grand Canyon South Rim → Monument Valley → SLC.
+      Grandpa flies home from Salt Lake City mid-morning July 11th.
+      <br><br>
+      <strong style="color:var(--danger)">⚠️ Book now:</strong> El Tovar / Bright Angel Lodge South Rim (xanterra.com) · The View Hotel Monument Valley (theviewhotel.com) · Both sell out in July.
+    </div>
+    <div id="grandpa-days"></div>
+    <div style="text-align:center;padding:1rem 0;font-size:0.75rem;color:var(--muted);">
+      ↑ Click any day header to expand · Notes auto-save to your browser
+    </div>
+  </div><!-- end tab-grandpa -->
+
+  <!-- ══ TAB 3: CALIFORNIA CALENDAR ══ -->
+  <div class="tab-panel" id="tab-calendar">
+    <div class="cal-intro">
+      <strong>July 11–21, 2025</strong> — The California chapter. Grandpa flies home from SLC, partner joins, you head west.
+      Partner works Mon–Wed; daytime is you &amp; the kiddo. Evenings and Thu–Sun are full family.
+      Base: Jedediah Smith Redwoods / Crescent City area. Then coastal drive to Tahoe Thursday, home Sunday.
+      Each day is collapsible — click the header to expand. Gold border = must-do. Grey border = optional.
+      Notes save automatically.
+    </div>
+    <div id="cal-days"></div>
+    <div style="text-align:center;padding:1rem 0;font-size:0.75rem;color:var(--muted);">
+      ↑ Click any day header to expand · Notes auto-save to your browser
+    </div>
+  </div><!-- end tab-calendar -->
 
 </main>
 
@@ -511,27 +879,27 @@ const DATA = [
     {id:'u10',n:'Capitol Reef NP + Fruita orchards',tg:['star','history','eat'],sq:false,d:'The Waterpocket Fold — a 100-mile wrinkle in the Earth\'s crust. The pioneer settlement of Fruita: working orchards (cherries and early apricots in June — pay by the pound on the honor system at the trees), a one-room schoolhouse, a historic farmhouse, and petroglyphs on nearly every canyon wall. Far fewer visitors than Zion or Bryce.',dr:'~2 hrs from Bryce on UT-12 — Torrey UT has excellent lodging and restaurants nearby'},
     {id:'u11',n:'Goblin Valley SP',tg:['star','weird','nature'],sq:false,d:'A bowl of thousands of mushroom-shaped Entrada sandstone hoodoos you can scramble among freely with no trails. Kids go completely feral with delight. A Star Wars filming location that looks exactly like it. Grandpa and the kiddo will be equally enchanted by this place.',dr:'~40 min from Capitol Reef on UT-24 near Hanksville'},
   ]},
-  {id:'ch', ico:'🏛️', t:'Ancient New Mexico & home via the San Juans', s:'Chaco Canyon, Aztec, Durango, Silverton, the Million Dollar Highway, Ouray', stops:[
-    {id:'h1',n:'Edge of the Cedars Museum — Blanding UT',tg:['history','art'],sq:true,d:'Small but excellent Ancestral Puebloan artifact museum with an excavated great house on the grounds. One of the best context-setters for everything you\'ve seen on this trip. Almost nobody stops here.',dr:'Blanding UT on US-191'},
-    {id:'h2',n:'Chaco Culture NHP',tg:['star','history','dark'],sq:false,d:'The political and ceremonial capital of the Ancestral Puebloan world — massive great houses aligned to solar and lunar events, a road system stretching hundreds of miles, the largest pre-Columbian buildings north of Mexico. Remote (16 miles dirt road) which keeps crowds away and makes it feel genuinely sacred. One of those places that changes your sense of what happened here before Europeans arrived.',dr:'Near Nageezi NM — high clearance vehicle strongly recommended; fill gas in Nageezi; road impassable when wet'},
-    {id:'h3',n:'Chaco — dark sky astronomy program',tg:['dark','star','ranger'],sq:true,d:'Chaco is an International Dark Sky Park and one of the darkest sites in the country. Rangers run evening telescope programs. If you can time an overnight here, the stargazing is extraordinary.',dr:'Inside Chaco Culture NHP — check nps.gov/chcu for program schedule'},
-    {id:'h4',n:'Aztec Ruins NM — reconstructed great kiva',tg:['star','history'],sq:false,d:'The only fully reconstructed great kiva you can walk into anywhere. The 50-foot circular ceremonial chamber is surprisingly moving to stand inside. 30-minute stop, completely worth it. Despite the name, it\'s Ancestral Puebloan.',dr:'Aztec NM near Farmington — ~1.5 hrs from Chaco'},
-    {id:'h5',n:'81301 Coffee House — Durango CO',tg:['coffee','star'],sq:false,d:'The most-mentioned specialty coffee shop in Durango — excellent espresso program, good pastries, cozy Victorian building on Main Ave. After days of scenic but rustic road coffee, the coffee snob gets their proper moment here.',dr:'Downtown Durango on Main Ave — 81301coffeehouse.com'},
-    {id:'h6',n:'Durango & Silverton Narrow Gauge Railroad',tg:['star','train'],sq:false,d:'A coal-fired steam train through the Animas River Canyon to Silverton — 45 miles each way, much of the route with no road access. One of the great train rides in the American West. Grandpa will love this enormously. The whole family will.',dr:'Departs Durango depot at 8:45am daily — book at durangotrain.com, sells out'},
-    {id:'h7',n:'Silverton CO — nearly intact Victorian mining town',tg:['ghost','history','star'],sq:false,d:'A nearly intact Victorian silver-mining town at 9,318 feet surrounded by 13,000-ft peaks. The boardwalk main street is largely unchanged from the 1880s. The San Juan County Historical Society Museum is excellent. Arrive by train or drive US-550 from Durango.',dr:'Top of the Million Dollar Highway, or end of the train line from Durango'},
-    {id:'h8',n:'Million Dollar Highway — Silverton to Ouray',tg:['star','drive','view'],sq:false,d:'25 miles of switchbacks along cliff faces with no guardrails on many sections, waterfalls crossing the road, 11,000-ft Red Mountain Pass, mine tailings of brilliant orange and red from the old silver operations. Drive it northbound (Silverton to Ouray) so you\'re on the inside lane at the cliff edges. Take it slow.',dr:'US-550 between Silverton and Ouray — Bear Creek Falls pull-off halfway is worth stopping for'},
-    {id:'h9',n:'Ouray CO — hot springs pool',tg:['star','hot','history'],sq:false,d:'A Victorian mining town in a box canyon with 13,000-ft peaks on three sides. The natural geothermal hot springs pool is open year-round. Box Canyon Falls — a dramatic slot canyon waterfall — is a 5-minute walk from Main Street. You have earned this soak after this trip.',dr:'Downtown Ouray — ouraycolorado.com for pool info'},
-    {id:'h10',n:'Black Canyon of the Gunnison NP',tg:['view','nature'],sq:true,d:'Darker walls and in some ways more dramatic than the Grand Canyon — ancient Precambrian rock, extraordinary shadows. Near Montrose, 30 minutes off US-50. A final exclamation point before Denver.',dr:'~1 hr from Ouray near Montrose on US-50 — nps.gov/blca'},
+  {id:'slc', ico:'🏔️', t:'North to Salt Lake City — Grandpa\'s send-off', s:'Helper, Nine Mile Canyon, the Great Salt Lake, and SLC farewell', stops:[
+    {id:'slc1',n:'Nine Mile Canyon — longest art gallery in the world',tg:['star','history','view'],sq:false,d:'A 40-mile canyon east of Price with thousands of Fremont culture petroglyphs and pictographs on the walls — more rock art per mile than anywhere in North America. Panels of bighorn sheep, hunting scenes, and geometric figures stretching for miles. Almost nobody comes here. Drive slowly and pull over constantly.',dr:'East of Price UT on Nine Mile Canyon Rd — dirt road, passenger car ok in dry weather. Allow 3-4 hrs'},
+    {id:'slc2',n:'Helper UT — Western Mining & Railroad Museum',tg:['ghost','history','art'],sq:false,d:'A beautifully preserved coal mining and railroad town in a canyon on US-6. The Western Mining & Railroad Museum is genuinely excellent and almost nobody stops here — mining equipment, company town history, labor history. The main street still has its original 1920s storefronts. One of Utah\'s most underrated towns.',dr:'On US-6 between Price and I-15 — right on the route north to SLC'},
+    {id:'slc3',n:'Price UT — College of Eastern Utah Prehistoric Museum',tg:['history','art'],sq:true,d:'One of the best dinosaur and prehistoric museums in Utah — full-scale allosaurus and camptosaurus skeletons, extensive Fremont culture artifacts, and the context for all the petroglyphs you\'ve been seeing. Free admission. Completely overlooked.',dr:'Downtown Price UT — free, open daily'},
+    {id:'slc4',n:'Gilgal Sculpture Garden — Salt Lake City',tg:['weird','art','star'],sq:false,d:'A completely bizarre free outdoor sculpture garden in a SLC neighborhood — a Mormon bishop spent 18 years carving giant sphinx heads onto boulders in a private garden, with Joseph Smith\'s face on the sphinx body. Sphinxes, totems, biblical scenes, all carved in the 1940s-50s. Wonderfully strange and completely free. The kiddo will have a lot of questions.',dr:'749 E. 500 S., Salt Lake City — free, open dawn to dusk'},
+    {id:'slc5',n:'Great Salt Lake — float in it',tg:['star','swim','weird'],sq:false,d:'The lake is so salty you float effortlessly — it\'s genuinely hard to sink. Antelope Island State Park is the best access point, with bison roaming the island and the full scale of the lake visible. The water smells intensely of brine shrimp which is part of the experience. Grandpa\'s last big adventure before the airport.',dr:'Antelope Island State Park — 45 min from SLC downtown, $15/vehicle'},
+    {id:'slc6',n:'Temple Square & Natural History Museum of Utah',tg:['history','art'],sq:true,d:'Temple Square is a remarkable piece of American religious architecture whatever your affiliation. The Natural History Museum of Utah is genuinely world-class — the dinosaur hall is extraordinary, the Native cultures galleries are excellent.',dr:'Downtown Salt Lake City'},
+    {id:'slc7',n:'SLC — Grandpa flies home from Salt Lake City Airport',tg:['star'],sq:false,d:'SLC is a major hub with direct flights to most cities. Easy 20 minutes from downtown. Drop Grandpa at departures, have a proper goodbye, and then you and the kiddo point the car west toward California.',dr:'Salt Lake City International Airport — 20 min from downtown SLC'},
   ]},
-  {id:'ca', ico:'🚗', t:'Kiddo & you — continuing to California', s:'After Grandpa flies out — big trees, coastline, and Tahoe', stops:[
-    {id:'ca1',n:'Bonneville Salt Flats',tg:['view','weird'],sq:true,d:'White salt flat where land speed records are set — completely flat horizon in every direction. Surreal and strange. Easy highway pull-off on I-80 west of Salt Lake.',dr:'~1.5 hrs west of SLC on I-80'},
-    {id:'ca2',n:'Great Basin NP — bristlecones & Lehman Caves',tg:['cave','nature','dark'],sq:true,d:'4,000-year-old bristlecone pine trees and gorgeous Lehman Caves guided tour. Almost nobody goes. Wheeler Peak Glacier — southernmost in the US. US-50, the Loneliest Road. International Dark Sky Park.',dr:'Eastern Nevada on US-50 — nps.gov/grba'},
-    {id:'ca3',n:'Mono Lake — tufa towers',tg:['star','view','nature'],sq:false,d:'Ancient saline lake 760,000 years old with alien calcium carbonate tufa towers rising from the water. The light and reflections are extraordinary. Migratory birds in huge numbers. US-395 near Lee Vining.',dr:'Eastern Sierra on US-395 near Lee Vining'},
-    {id:'ca4',n:'Sequoia NP — General Sherman Tree',tg:['star','nature'],sq:false,d:'The largest living thing on Earth by volume — 275 feet tall, 36 feet in diameter, approximately 2,200 years old. It was already ancient when Rome fell. The scale is genuinely incomprehensible until you\'re standing next to it.',dr:'~3 hrs from Mono Lake via US-395 and CA-168 west'},
-    {id:'ca5',n:'Kings Canyon — deepest canyon in North America',tg:['star','view','nature'],sq:true,d:'Deeper than the Grand Canyon. The scenic byway drops 2,600 feet to the canyon floor through switchbacks. The Zumwalt Meadow loop (2 miles, easy, beautiful) at the bottom is one of the best easy hikes in the Sierra.',dr:'Adjacent to Sequoia NP — check road conditions for CA-180'},
-    {id:'ca6',n:'Avenue of the Giants — coastal redwoods',tg:['star','nature'],sq:false,d:'32 miles of old-growth coastal redwood grove — trees 300+ feet tall and up to 1,500 years old. The canopy is so dense it feels like a cathedral. The Founders Grove has the Dyerville Giant, one of the tallest trees ever recorded before it fell.',dr:'US-101 Humboldt County — ~3-4 hrs north from Sequoia via CA-99/I-5'},
-    {id:'ca7',n:'CA-1 — Pacific Coast Highway',tg:['star','drive','view'],sq:false,d:'The most dramatic coastal road in America. McWay Falls drops onto an inaccessible beach (which makes it more beautiful). Elephant seals lounging at San Simeon. Pull over constantly. Go as slow as you can.',dr:'Central California coast between Carmel and San Luis Obispo'},
-    {id:'ca8',n:'Lake Tahoe',tg:['nature','swim'],sq:false,d:'One of the most beautiful alpine lakes in the world — 22 miles long, 1,645 feet deep, water so clear you can see 70 feet down. A perfect final destination.',dr:'Eastern Sierra — 3 hrs from San Francisco, 45 min from Reno airport'},
+  {id:'ca', ico:'🚗', t:'Kiddo & you — on to California', s:'After the SLC goodbye — Nevada, big trees, redwood coast, and Tahoe', stops:[
+    {id:'ca1',n:'Bonneville Salt Flats',tg:['view','weird'],sq:true,d:'White salt flat where land speed records are set — completely flat horizon in every direction, nothing for miles. Surreal and very strange. Easy highway pull-off right on I-80 west of SLC.',dr:'~1.5 hrs west of SLC on I-80 — signed pull-off'},
+    {id:'ca2',n:'Wendover UT/NV — state line town',tg:['weird'],sq:true,d:'The classic Nevada state line casino town — useful fuel and food stop after the salt flats. The drive across the salt desert from SLC to Wendover on I-80 is one of the most surreal stretches of highway in America.',dr:'On I-80 at the Utah/Nevada border'},
+    {id:'ca3',n:'Great Basin NP — bristlecones & Lehman Caves',tg:['cave','nature','dark','star'],sq:true,d:'4,000-year-old bristlecone pine trees and gorgeous Lehman Caves guided tour. Almost nobody goes here. Wheeler Peak Glacier is the southernmost glacier in the US. International Dark Sky Park with extraordinary night skies. Worth the detour south from I-80.',dr:'On US-50 (the Loneliest Road) in eastern Nevada — nps.gov/grba'},
+    {id:'ca4',n:'US-50 — the Loneliest Road in America',tg:['drive','view'],sq:true,d:'Life magazine called it "the loneliest road in America" in 1986 and the name stuck. 287 miles of Nevada desert with almost nothing between towns. Strange, beautiful, and very quiet. An alternative to I-80 if you want the slow road.',dr:'From Ely NV to Carson City NV — parallels I-80 to the south'},
+    {id:'ca5',n:'Mono Lake — tufa towers',tg:['star','view','nature'],sq:false,d:'Ancient saline lake 760,000 years old with alien calcium carbonate tufa towers rising from the water. The light and reflections are extraordinary — photographers make pilgrimages here. Enormous numbers of migratory birds. US-395 near Lee Vining.',dr:'Eastern Sierra on US-395 near Lee Vining — south from US-50 via US-395'},
+    {id:'ca6',n:'Sequoia NP — General Sherman Tree',tg:['star','nature'],sq:false,d:'The largest living thing on Earth by volume — 275 feet tall, 36 feet in diameter, approximately 2,200 years old. It was old when Rome fell. The scale is genuinely incomprehensible until you\'re standing right next to it.',dr:'~3 hrs from Mono Lake via US-395 south and CA-168 west'},
+    {id:'ca7',n:'Kings Canyon — deepest canyon in North America',tg:['star','view','nature'],sq:true,d:'Deeper than the Grand Canyon. The scenic byway drops 2,600 feet to the canyon floor through switchbacks. The Zumwalt Meadow loop (2 miles, easy, beautiful) at the bottom is one of the best easy hikes in the Sierra.',dr:'Adjacent to Sequoia NP — Kings Canyon Scenic Byway, CA-180'},
+    {id:'ca8',n:'Avenue of the Giants — coastal redwoods',tg:['star','nature'],sq:false,d:'32 miles of old-growth coastal redwood grove — trees 300+ feet tall and up to 1,500 years old. The canopy is so dense it feels like a cathedral. Founders Grove has the Dyerville Giant, one of the tallest trees ever recorded.',dr:'US-101 in Humboldt County — 3-4 hrs from Sequoia via CA-99/I-5 north'},
+    {id:'ca9',n:'Lost Coast — Mattole Road',tg:['drive','view','nature'],sq:true,d:'24 miles of dirt road through the most remote stretch of the California coast — no services, black sand beaches, King Range mountains dropping straight to the sea. The most dramatic and isolated coastal drive in California. Not for the faint-hearted.',dr:'Off US-101 in Humboldt County — high clearance helpful, check road conditions'},
+    {id:'ca10',n:'CA-1 — Pacific Coast Highway through Big Sur',tg:['star','drive','view'],sq:false,d:'The most dramatic coastal road in America. McWay Falls drops onto an inaccessible beach (which makes it more beautiful). Elephant seals lounging at San Simeon. Bixby Bridge. Pull over constantly. Go as slow as you can.',dr:'Central California coast between Carmel and San Luis Obispo'},
+    {id:'ca11',n:'Lake Tahoe',tg:['star','nature','swim'],sq:false,d:'One of the most beautiful alpine lakes in the world — 22 miles long, 1,645 feet deep, water so clear you can see 70 feet down. A perfect final destination or waypoint into California. Reno airport is 45 min if you need to fly home from here.',dr:'Eastern Sierra — from SLC go west on I-80 through Reno then south on US-395, or south from SLC via US-50 and CA-89'},
   ]},
 ];
 
@@ -582,6 +950,33 @@ function buildAll() {
     hdr.innerHTML = `<span class="leg-icon">${leg.ico}</span><div class="leg-text"><div class="leg-title">${leg.t}</div><div class="leg-sub">${leg.s}</div></div><span class="leg-badge empty" id="B${leg.id}">0 checked</span><span class="leg-chevron" id="C${leg.id}">▾</span>`;
     hdr.onclick = () => togLeg(leg.id);
 
+    // Leg-level notes bar
+    const legNoteKey = 'lnote_' + leg.id;
+    const legNoteVal = localStorage.getItem(legNoteKey) || '';
+    const legNoteBar = document.createElement('div');
+    legNoteBar.className = 'leg-note-bar';
+    legNoteBar.id = 'LNB' + leg.id;
+    legNoteBar.innerHTML = `<span class="leg-note-label">📝 Leg notes</span><span class="leg-note-preview" id="LNBP${leg.id}">${legNoteVal ? legNoteVal.replace(/\n/g,' ').substring(0,80)+(legNoteVal.length>80?'…':'') : 'Click to add notes for this leg…'}</span>`;
+    legNoteBar.onclick = (e) => { e.stopPropagation(); togLegNote(leg.id); };
+
+    const legNoteArea = document.createElement('div');
+    legNoteArea.className = 'leg-note-area';
+    legNoteArea.id = 'LNA' + leg.id;
+    const legNoteTa = document.createElement('textarea');
+    legNoteTa.className = 'leg-note-ta';
+    legNoteTa.placeholder = 'Notes for this leg — lodging ideas, timing, things to book in advance, packing reminders…';
+    legNoteTa.value = legNoteVal;
+    legNoteTa.onclick = e => e.stopPropagation();
+    legNoteTa.oninput = () => {
+      localStorage.setItem(legNoteKey, legNoteTa.value);
+      const preview = document.getElementById('LNBP' + leg.id);
+      if (preview) {
+        const v = legNoteTa.value;
+        preview.textContent = v ? v.replace(/\n/g,' ').substring(0,80)+(v.length>80?'…':'') : 'Click to add notes for this leg…';
+      }
+    };
+    legNoteArea.appendChild(legNoteTa);
+
     const body = document.createElement('div');
     body.className = 'leg-body';
     body.id = 'BD' + leg.id;
@@ -612,13 +1007,23 @@ function buildAll() {
     }
 
     div.appendChild(hdr);
+    div.appendChild(legNoteBar);
+    div.appendChild(legNoteArea);
     div.appendChild(body);
     c.appendChild(div);
   });
+  loadChecked();
   updStats();
   applyF();
-  // Open first leg by default
   togLeg(DATA[0].id);
+}
+
+function togLegNote(id) {
+  const area = document.getElementById('LNA' + id);
+  if (!area) return;
+  const isOpen = area.classList.contains('open');
+  area.classList.toggle('open', !isOpen);
+  if (!isOpen) area.querySelector('textarea').focus();
 }
 
 function mkCard(s) {
@@ -635,6 +1040,12 @@ function mkCard(s) {
   info.className = 'si';
 
   const tgsHtml = (s.tg || []).map(t => `<span class="tg tg-${t}">${TL[t] || t}</span>`).join('');
+
+  // Load saved note
+  const noteKey = 'note_' + s.id;
+  const noteVal = localStorage.getItem(noteKey) || '';
+  const hasNote = noteVal.trim().length > 0;
+
   info.innerHTML = `
     <div class="stop-top"><span class="sn">${s.n}</span></div>
     <div class="tgs">${tgsHtml}</div>
@@ -642,10 +1053,87 @@ function mkCard(s) {
     <div class="sdrv">${s.dr}</div>
   `;
 
+  // Notes toggle button
+  const noteToggle = document.createElement('button');
+  noteToggle.className = 'note-toggle' + (hasNote ? ' has-note' : '');
+  noteToggle.id = 'NT' + s.id;
+  noteToggle.innerHTML = `<span class="nt-icon">▶</span> ${hasNote ? '📝 Note added' : 'Add a note'}`;
+  noteToggle.onclick = (e) => { e.stopPropagation(); togNote(s.id); };
+
+  // Notes area
+  const noteArea = document.createElement('div');
+  noteArea.className = 'note-area';
+  noteArea.id = 'NA' + s.id;
+
+  const noteTa = document.createElement('textarea');
+  noteTa.className = 'note-ta';
+  noteTa.placeholder = 'Your notes — booking links, reminders, things Grandpa said he wants to do here, opening hours…';
+  noteTa.value = noteVal;
+  noteTa.setAttribute('data-has-note', hasNote ? 'true' : 'false');
+  noteTa.onclick = e => e.stopPropagation();
+  noteTa.oninput = () => {
+    const v = noteTa.value;
+    const has = v.trim().length > 0;
+    noteTa.setAttribute('data-has-note', has ? 'true' : 'false');
+    localStorage.setItem(noteKey, v);
+    const tog = document.getElementById('NT' + s.id);
+    if (tog) {
+      tog.className = 'note-toggle' + (has ? ' has-note' : '');
+      tog.innerHTML = `<span class="nt-icon open-icon">▶</span> ${has ? '📝 Note added' : 'Add a note'}`;
+      if (document.getElementById('NA' + s.id).classList.contains('open')) {
+        tog.classList.add('open');
+        tog.querySelector('.nt-icon').style.transform = 'rotate(90deg)';
+      }
+    }
+  };
+
+  noteArea.appendChild(noteTa);
+  info.appendChild(noteToggle);
+  info.appendChild(noteArea);
+
   c.appendChild(chkEl);
   c.appendChild(info);
-  c.onclick = () => togStop(s.id);
+  c.onclick = (e) => {
+    // Don't toggle stop if clicking notes
+    if (e.target.closest('.note-toggle') || e.target.closest('.note-area')) return;
+    togStop(s.id);
+  };
   return c;
+}
+
+function togNote(id) {
+  const area = document.getElementById('NA' + id);
+  const tog = document.getElementById('NT' + id);
+  if (!area || !tog) return;
+  const isOpen = area.classList.contains('open');
+  area.classList.toggle('open', !isOpen);
+  tog.classList.toggle('open', !isOpen);
+  if (!isOpen) {
+    area.querySelector('textarea').focus();
+  }
+}
+
+function saveChecked() {
+  localStorage.setItem('ga_checked', JSON.stringify([...ckd]));
+}
+
+function loadChecked() {
+  try {
+    const saved = localStorage.getItem('ga_checked');
+    if (saved) {
+      const ids = JSON.parse(saved);
+      ids.forEach(id => {
+        ckd.add(id);
+        const card = document.getElementById('SC' + id);
+        if (card) {
+          card.classList.add('ck');
+          const ch = card.querySelector('.chk');
+          if (ch) ch.innerHTML = '✓';
+        }
+      });
+      updBadges();
+    }
+  } catch(e) {}
 }
 
 function togStop(id) {
@@ -656,6 +1144,7 @@ function togStop(id) {
   const chkEl = c.querySelector('.chk');
   if (ckd.has(id)) { c.classList.add('ck'); chkEl.innerHTML = '✓'; }
   else { c.classList.remove('ck'); chkEl.innerHTML = ''; }
+  saveChecked();
   updStats();
   updBadges();
   updPreview();
@@ -712,7 +1201,7 @@ function chkAll() {
     const c = document.getElementById('SC' + s.id);
     if (c) { c.classList.add('ck'); const ch = c.querySelector('.chk'); if (ch) ch.innerHTML = '✓'; }
   }));
-  updStats(); updBadges(); updPreview();
+  saveChecked(); updStats(); updBadges(); updPreview();
 }
 
 function clrAll() {
@@ -721,6 +1210,7 @@ function clrAll() {
     const c = document.getElementById('SC' + s.id);
     if (c) { c.classList.remove('ck'); const ch = c.querySelector('.chk'); if (ch) ch.innerHTML = ''; }
   }));
+  saveChecked();
   updStats(); updBadges();
   document.getElementById('rp').style.display = 'none';
 }
@@ -734,7 +1224,7 @@ function chkCat(tags) {
       if (c) { c.classList.add('ck'); const ch = c.querySelector('.chk'); if (ch) ch.innerHTML = '✓'; }
     }
   }));
-  updStats(); updBadges(); updPreview();
+  saveChecked(); updStats(); updBadges(); updPreview();
 }
 
 function chkStars() { chkCat(['star']); }
@@ -750,9 +1240,485 @@ function updPreview() {
   document.getElementById('rp-stops').innerHTML = stops.map(s => `<span class="act">${s.n}</span>`).join(' <span style="color:#aaa"> › </span> ');
 }
 
+// ══ TAB SWITCHING ══
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ══ GRANDPA LEG DATA ══
+const GRANDPA_DAYS = [
+  {
+    id:'g_jul3', date:'3', month:'Jul', dow:'Thu', type:'slc',
+    title:'Grandpa Arrives Denver!',
+    sub:'Pick up from DIA, rest day, settle in',
+    sections:[
+      {type:'logistics',icon:'✈️',label:'Arrival',items:[
+        {must:true,name:'Pick up Grandpa at Denver International Airport',desc:'DIA is about 45 min from most Denver neighborhoods. Grab the bags, get food on the way home, decompress from the flight.',note:'Confirm arrival terminal and flight number ahead of time — DIA has multiple concourses'},
+        {must:true,name:'Rest day — no agenda',desc:'Grandpa just flew in. Light evening, good dinner, early bed. The trip starts properly on the 4th.',note:''},
+      ]},
+    ]
+  },
+  {
+    id:'g_jul4', date:'4', month:'Jul', dow:'Fri', type:'slc',
+    title:'July 4th in Denver',
+    sub:'Rest day, local adventure, fireworks',
+    sections:[
+      {type:'evening',icon:'🎆',label:'July 4th — Full Family Local Day',items:[
+        {must:true,name:'4th of July fireworks',desc:'Denver has several good fireworks shows. Civic Center Park downtown, Stapleton/Central Park, or drive up to Red Rocks for the view. Grandpa + fireworks = non-negotiable.',note:'Crowds are significant downtown — get there early and have a clear exit plan'},
+        {must:false,name:'Red Rocks Amphitheater',desc:'The most iconic outdoor venue in America — 300-foot sandstone fins framing a natural stage. Beautiful hike or just the view. 30 min from Denver.',note:'Free to visit during the day outside of concert hours — check schedule'},
+        {must:false,name:'City Park / Denver Zoo area',desc:'Great neighborhood for a relaxed afternoon, paddle boats on the lake, the Denver Museum of Nature and Science has a good dinosaur hall if the kiddo is interested.',note:''},
+        {must:false,name:'Larimer Square or RiNo for dinner',desc:'Great Denver neighborhoods for food. Larimer Square is historic and lively on the 4th. RiNo has excellent food and brewery options.',note:''},
+      ]},
+    ]
+  },
+  {
+    id:'g_jul5', date:'5', month:'Jul', dow:'Sat', type:'drive',
+    title:'Hit the Road — Denver → Durango',
+    sub:'South over Wolf Creek Pass through the San Juans, ~5.5 hrs',
+    sections:[
+      {type:'drive-section',icon:'🛣️',label:'Drive Log — ~5.5 hrs',items:[
+        {must:true,name:'Denver → Pueblo → Walsenburg (I-25 south)',desc:'~2 hrs. Head south on I-25 through Colorado Springs and Pueblo. Flat and fast — good audiobook stretch. The Spanish Peaks appear on your left around Walsenburg.',note:''},
+        {must:true,name:'Walsenburg → Alamosa → South Fork (US-160 west)',desc:'~1.5 hrs. Cross the San Luis Valley — the largest alpine valley in the world, flat as a table surrounded by 14,000-ft peaks. The Great Sand Dunes are visible to the east if you look for them.',note:'Worth the Drive Bakery in Monte Vista is 20 min off US-160 — Amish-run, famous cinnamon rolls, 4.9 stars'},
+        {must:true,name:'Wolf Creek Pass (US-160) — 10,857 ft',desc:'The climb over the Continental Divide. Spectacular alpine scenery, switchbacks, snow-capped peaks in early July. One of the great Colorado mountain drives.',note:'Take it slow on the descent — steep grades, beautiful views'},
+        {must:true,name:'Wolf Creek Pass → Pagosa Springs → Durango',desc:'~1.5 hrs. Drop into the San Juan River valley. Pagosa Springs has the world\'s deepest natural hot spring — quick stop at The Springs Resort to look at the sulfur pools if you want.',note:''},
+      ]},
+      {type:'evening',icon:'🌅',label:'Durango Evening',items:[
+        {must:true,name:'Arrive Durango — Main Avenue',desc:'A beautifully preserved Victorian railroad town. Walk Main Avenue, look at the Durango & Silverton Narrow Gauge Railroad depot for tomorrow, good dinner.',note:'Book lodging ahead — July is peak season in Durango'},
+        {must:false,name:'Dinner: Steamworks Brewing or Carver Brewing',desc:'Both excellent Durango institutions on Main Ave. Steamworks has great food beyond the beer. Carver has been there since 1988.',note:''},
+        {must:false,name:'Durango & Silverton Railroad — check morning schedule',desc:'The D&SRG departs 8:45am for Silverton — if Grandpa wants to do the steam train it\'s today or never on this trip. Adds half a day but it\'s magnificent.',note:'Book at durangotrain.com — sells out, go tonight if interested'},
+      ]},
+    ]
+  },
+  {
+    id:'g_jul6', date:'6', month:'Jul', dow:'Sun', type:'drive',
+    title:'Durango → Aztec Ruins → Carlsbad Caverns',
+    sub:'Ancient ruins in the morning, bats at sunset, ~5.5 hrs driving',
+    sections:[
+      {type:'drive-section',icon:'🛣️',label:'Drive Log — ~5.5 hrs plus stops',items:[
+        {must:true,name:'Durango → Aztec Ruins NM (US-550 south)',desc:'~1 hr to Aztec NM near Farmington. Ship Rock is visible from the highway as you descend into New Mexico — the 1,583-ft volcanic needle rising from flat desert. Pull over.',note:''},
+        {must:true,name:'Aztec Ruins National Monument — great kiva',desc:'The only fully reconstructed great kiva you can walk into anywhere. The 50-foot circular ceremonial chamber is surprisingly moving. 30-minute stop. Sets up everything you\'ll see in canyon country.',note:'$10/person — allow 45 min, worth every minute'},
+        {must:true,name:'Aztec → Carlsbad Caverns (US-285 south)',desc:'~4 hrs through the New Mexico high desert. Long drive but beautiful open country. Cross the Guadalupe Mountains as you approach Carlsbad.',note:'Fuel in Artesia — limited services on this stretch'},
+      ]},
+      {type:'evening',icon:'🦇',label:'Carlsbad — The Main Event',items:[
+        {must:true,name:'Carlsbad Caverns — Natural Entrance walk',desc:'Enter through the cave mouth and descend a mile into the earth on foot. The Big Room: 14 acres of cathedral space, 750 feet underground, stalactites the size of cars, cave pearls, the Bottomless Pit. One of the genuine wonders of North America.',note:'$15/person — allow 2-3 hrs. Elevator available if Natural Entrance is too much.'},
+        {must:true,name:'BAT FLIGHT at sunset — do not miss this',desc:'Hundreds of thousands of Mexican free-tailed bats spiral out of the cave mouth at dusk in a column that can last 20 minutes. You sit in the outdoor amphitheater, a ranger narrates, and then it begins. Completely free, no reservation needed. One of the great wildlife spectacles in America.',note:'Check nps.gov/cave for the exact announced time for your date — show up 30 min early for a good seat'},
+      ]},
+    ]
+  },
+  {
+    id:'g_jul7', date:'7', month:'Jul', dow:'Mon', type:'drive',
+    title:'Carlsbad → White Sands',
+    sub:'Short drive, full afternoon in the dunes, sunset is everything',
+    sections:[
+      {type:'drive-section',icon:'🛣️',label:'Drive — ~1.5 hrs',items:[
+        {must:true,name:'Carlsbad → White Sands via US-285 and US-70',desc:'~1.5 hrs. Short and easy. This gives you the whole afternoon in the park.',note:'Guadalupe Mountains NP is on US-62/180 between Carlsbad and El Paso — 1 hr detour if you want to add it. Highest peak in Texas, striking scenery.'},
+      ]},
+      {type:'evening',icon:'🏜️',label:'White Sands — All Afternoon and Sunset',items:[
+        {must:true,name:'White Sands National Park — arrive by 3pm',desc:'Pure white gypsum dunes stretching to the horizon. NASA tests Mars rovers here. The afternoon light builds toward something extraordinary by sunset.',note:'$25/vehicle — the Alkali Flat Trail (5 miles) goes deepest into the dunes. Interdune Boardwalk is easy and accessible.'},
+        {must:true,name:'Rent sleds at the visitor center gift shop',desc:'Grandpa is sledding. This is not negotiable and non-optional. The kiddo especially will launch themselves down dunes for an hour straight.',note:'~$25 deposit, returnable'},
+        {must:true,name:'Stay for sunset — the real reason',desc:'The light turns the white dunes pink, then orange, then deep rose. Every person in the park falls quiet. One of those moments that doesn\'t photograph as well as it looks in real life.',note:'Sunset varies — check time and plan to be deep in the dunes 30 min before'},
+        {must:false,name:'Moonrise/dark sky',desc:'White Sands under a full moon is extraordinary — the dunes glow. Check moon phase for July 7. White Sands occasionally does full moon nights with extended hours.',note:'Check nps.gov/whsa for special evening programs'},
+      ]},
+    ]
+  },
+  {
+    id:'g_jul8', date:'8', month:'Jul', dow:'Tue', type:'drive',
+    title:'White Sands → West Across New Mexico → Overnight near Grand Canyon',
+    sub:'Long drive day with great stops — ~6 hrs to Williams or Tusayan AZ',
+    sections:[
+      {type:'drive-section',icon:'🛣️',label:'Drive Log — ~6 hrs',items:[
+        {must:true,name:'White Sands → I-10 west → I-25 north → I-40 west',desc:'Head northwest out of Las Cruces and pick up I-40 westbound at Albuquerque. The most efficient path to the Grand Canyon.',note:'Albuquerque is a good fuel and lunch stop — Old Town Albuquerque if you have 45 min'},
+        {must:true,name:'Petrified Forest National Park — right on I-40',desc:'Drive-through the 28-mile park road. Ancient logs turned to crystal scattered across painted badlands — 225 million years old. The Painted Desert colors at any light are extraordinary. 2-hour detour from I-40.',note:'$25/vehicle — enter from I-40 at the north entrance, exit south or vice versa'},
+        {must:false,name:'Winslow AZ — lunch stop',desc:'The Eagles corner ("standin\' on a corner in Winslow Arizona") is a fun 10-minute photo stop. La Posada Hotel is a beautifully restored 1930 Harvey House — excellent lunch and extraordinary architecture.',note:'~40 min west of Petrified Forest on I-40'},
+        {must:true,name:'Williams or Tusayan AZ — overnight',desc:'Williams is the classic Route 66 town 60 miles south of the rim — good food, historic main street, more options. Tusayan is right outside the park south entrance — convenient for an early start but limited options.',note:'Book ahead — July is peak season'},
+      ]},
+    ]
+  },
+  {
+    id:'g_jul9', date:'9', month:'Jul', dow:'Wed', type:'drive',
+    title:'Grand Canyon South Rim — Full Day',
+    sub:'Enter via Desert View east entrance, work west along the rim',
+    sections:[
+      {type:'drive-section',icon:'🗺️',label:'Grand Canyon Strategy',items:[
+        {must:true,name:'Enter via Desert View — east entrance',desc:'Take US-64 east from Williams/Tusayan rather than going straight to the main south entrance. Desert View is the far east end of the rim — less crowded, better orientation, and the Watchtower is here.',note:'Desert View entry is included in the park pass — $35/vehicle for 7 days'},
+        {must:true,name:'Desert View Watchtower — Mary Colter 1932',desc:'A masterpiece of Southwest architecture built to evoke ancestral Puebloan towers. Views stretch across the canyon and the Painted Desert. Start here, get oriented, let the scale sink in.',note:'Short staircase to the top — accessible otherwise'},
+        {must:true,name:'Drive the rim west — stop at every overlook',desc:'Lipan Point, Navajo Point, Grandview Point, Moran Point, Yaki Point. Each one is a different perspective on the canyon. Take the free shuttle from the main visitor area for the western viewpoints.',note:''},
+        {must:true,name:'Bright Angel Point and Village area',desc:'The historic core — El Tovar Hotel, Bright Angel Lodge (both Mary Colter), the trailheads, Yavapai Geology Museum right on the rim. The Colorado River is 4,500 feet below.',note:'Mather Point at sunrise the next morning if you\'re still here — genuinely transforms the canyon'},
+        {must:false,name:'Hermit\'s Rest — west end of shuttle route',desc:'The last stop on the western shuttle — another Mary Colter building designed to look like a hermit\'s cave. The views from here are quieter and the stone fireplace inside is beautiful.',note:'Free shuttle from village — 30 min each way'},
+        {must:false,name:'Rim Trail walk — any section',desc:'The paved rim trail is flat and accessible and lets you move between viewpoints at your own pace with the canyon right beside you. Grandpa sets the pace.',note:''},
+      ]},
+      {type:'evening',icon:'🌅',label:'Grand Canyon Evening',items:[
+        {must:true,name:'Sunset on the rim',desc:'Position at Hopi Point or Mohave Point on the western shuttle route — these face west and give the full sunset color show on the canyon walls. The canyon turns every shade of red and gold.',note:'These spots fill up 30-40 min before sunset in July — get there early'},
+        {must:false,name:'Dinner: El Tovar Dining Room',desc:'The grand dame of the rim — the 1905 El Tovar Hotel dining room has been feeding canyon visitors for 120 years. Excellent food, views of the rim, historic atmosphere. Worth the splurge.',note:'Reservations strongly recommended — book at xanterra.com well ahead'},
+      ]},
+    ]
+  },
+  {
+    id:'g_jul10', date:'10', month:'Jul', dow:'Thu', type:'drive',
+    title:'Grand Canyon → Monument Valley — Last Night on the Road',
+    sub:'Exit via Desert View, north on US-89, arrive for afternoon light',
+    sections:[
+      {type:'drive-section',icon:'🛣️',label:'Drive Log — ~3 hrs',items:[
+        {must:true,name:'Grand Canyon → Desert View → US-89 north',desc:'Exit the canyon the way you came in — via Desert View. Then head north on US-89 through one of the best highway stretches in the Southwest.',note:''},
+        {must:true,name:'Vermilion Cliffs and Echo Cliffs — US-89',desc:'The road drops off the plateau and the Vermilion Cliffs appear — 3,000-foot walls of red and orange sandstone. California condors were reintroduced here and are often visible from the road. One of the great American highway drives.',note:'Pull off at the Navajo Bridge overlook — condors roost on the bridge itself'},
+        {must:true,name:'Navajo Bridge — Marble Canyon',desc:'Two bridges side by side over the Colorado River at the entrance to Marble Canyon. Walk the old 1929 span (pedestrian only now). Look down 467 feet to the river. California condors nest under the bridge.',note:'Free — short walk from the parking area'},
+        {must:true,name:'US-89 → US-160 east → Kayenta → Monument Valley',desc:'~1.5 hrs from Navajo Bridge. The landscape shifts to the iconic Navajo Nation red mesa country as you approach.',note:''},
+      ]},
+      {type:'evening',icon:'🏜️',label:'Monument Valley — The Finale',items:[
+        {must:true,name:'Arrive Monument Valley — The View Hotel',desc:'Check in, walk to the viewing deck, and let the Mittens and Merrick Butte do their thing. The afternoon light on those spires is extraordinary. This is the image. This is the one.',note:'theviewhotel.com — (435) 727-5555. July 10 night. If not already booked, call immediately.'},
+        {must:true,name:'Sunset from the hotel deck',desc:'Watch the Mittens turn red, then orange, then deep purple as the sun drops. Pour something worth drinking. Grandpa has earned this view.',note:''},
+        {must:false,name:'Navajo jeep tour — book at the hotel',desc:'The valley floor requires a Navajo guide. Ancient ruins, the Wave formation, the Ear of the Wind — none visible from the road. If there\'s an evening tour available, take it.',note:'Book at The View Hotel front desk on arrival — 90 min to 3 hr options'},
+        {must:false,name:'Star gazing after dark',desc:'Monument Valley is extremely dark. The night sky here, with the silhouette of the Mittens against the Milky Way, is one of the great sights of the American West.',note:''},
+      ]},
+    ]
+  },
+  {
+    id:'g_jul11', date:'11', month:'Jul', dow:'Fri', type:'slc',
+    title:'Sunrise at Monument Valley → SLC → Grandpa Flies Home',
+    sub:'The best possible last morning, then north to the airport',
+    sections:[
+      {type:'evening',icon:'🌅',label:'The Last Morning',items:[
+        {must:true,name:'SUNRISE from The View Hotel deck',desc:'Set an alarm. Get up. Walk to the deck. Watch the Mittens emerge from darkness as the sky turns pink and gold behind them. This is Grandpa\'s last morning of the trip and it is a very good one.',note:'Sunrise is around 6am in early July — check the exact time'},
+        {must:true,name:'Breakfast and load the car',desc:'Good breakfast at The View Hotel restaurant, load up, take one more look at the valley, then point north.',note:''},
+      ]},
+      {type:'drive-section',icon:'🛣️',label:'Drive to SLC — ~5 hrs',items:[
+        {must:true,name:'Monument Valley → US-163 north → US-191 north → I-70 → SLC',desc:'~5 hrs. Head north through Bluff, Moab area, up US-191 and connect to I-70 and then I-15 north to Salt Lake City.',note:'Monument Valley to SLC is exactly 5 hours — give yourself buffer for the airport'},
+        {must:false,name:'Valley of the Gods — scenic detour',desc:'A free drivable mini Monument Valley on a dirt road just north of Mexican Hat — 17 miles of red mesas with no crowds. Adds 45 min.',note:'Off US-163 near Mexican Hat'},
+        {must:false,name:'Moab lunch stop',desc:'Moab is right on the route — good food, Last stop before the highway north. Breakfast at Moab Garage Co. or lunch at Zax.',note:'~2.5 hrs from Monument Valley'},
+      ]},
+      {type:'logistics',icon:'✈️',label:'SLC Airport Sendoff',items:[
+        {must:true,name:'Drop Grandpa at Salt Lake City International Airport',desc:'Mid-morning flight July 11. SLC is 20 min from downtown. Allow extra time for bags and security. Make it a proper goodbye.',note:'SLC airport is well laid out — drop-off is easy, clear signage'},
+        {must:true,name:'Pick up partner — same airport',desc:'Coordinate the timing so partner arrives around the same time Grandpa departs. One stop, two missions.',note:''},
+        {must:true,name:'Head west — the California leg begins',desc:'I-80 west out of SLC. The next chapter starts now.',note:''},
+      ]},
+    ]
+  },
+];
+
+// ══ BUILD GRANDPA CALENDAR ══
+function buildGrandpaCalendar() {
+  const container = document.getElementById('grandpa-days');
+  if (!container) return;
+  container.innerHTML = '';
+  GRANDPA_DAYS.forEach(day => buildCalDay(container, day, 'gp_'));
+}
+
+// ══ CALENDAR DATA ══
+const CAL_DAYS = [
+  {
+    id:'jul10', date:'10', month:'Jul', dow:'Thu', type:'slc',
+    title:'SLC — Last Night with Grandpa',
+    sub:'Sendoff dinner, hot springs soak, get the airport plan sorted',
+    sections:[
+      {type:'logistics',icon:'✈️',label:'Logistics',items:[
+        {must:true,name:'Confirm Grandpa\'s flight',desc:'July 10 or 11 — nail down the exact date and time. SLC airport is 20 min from downtown, easy drop-off. Delta and United have good connections from SLC.',note:'Book early — summer SLC flights fill up'},
+        {must:true,name:'Pick up partner at SLC airport',desc:'Coordinate arrival time with Grandpa\'s departure so the handoff is clean. Partner flies in, Grandpa flies out, possibly same terminal.',note:''},
+      ]},
+      {type:'evening',icon:'🌅',label:'Full Family Evening',items:[
+        {must:true,name:'Grandpa farewell dinner',desc:'Make it count. Downtown SLC has excellent food — Red Iguana (Mexican, legendary, cash only) or Market Street Grill (seafood, Salt Lake institution since 1983). Grandpa picks.',note:'Red Iguana often has a wait — call ahead or go early'},
+        {must:false,name:'Antelope Island State Park — float the Great Salt Lake',desc:'If timing allows before dinner — drive out to Antelope Island (45 min), wade into the lake, float effortlessly in the brine. Bison roaming the island. The scale of the lake is genuinely staggering. Grandpa\'s last big adventure.',note:'$15/vehicle — closes at dusk, check sunset time'},
+        {must:false,name:'Temple Square evening walk',desc:'The grounds are beautiful at night, beautifully lit, and free to walk. A good after-dinner stroll if everyone has energy.',note:''},
+      ]},
+    ]
+  },
+  {
+    id:'jul11', date:'11', month:'Jul', dow:'Fri', type:'slc',
+    title:'Grandpa Flies Home — Head West',
+    sub:'Airport sendoff, hit I-80, overnight somewhere in Nevada',
+    sections:[
+      {type:'logistics',icon:'🚗',label:'Drive Plan',items:[
+        {must:true,name:'SLC → Nevada — I-80 west',desc:'After the airport drop-off, head west on I-80 through the Bonneville Salt Flats and into Nevada. The salt flats are right on I-80 — pull over for 10 minutes and walk out on them. The flatness is disorienting in the best way.',note:''},
+        {must:true,name:'Bonneville Salt Flats pull-off',desc:'Signed pull-off directly on I-80 about 100 miles west of SLC. Walk out onto the crust. Take the photo. It\'s genuinely surreal — completely flat horizon 360 degrees.',note:'Free, 10 min, totally worth it'},
+        {must:false,name:'Wendover — Nevada state line',desc:'Classic casino border town. Useful for fuel, food, cheap overnight if you leave late. The drive across the salt desert from SLC to Wendover is one of the most alien stretches of highway in America.',note:''},
+      ]},
+      {type:'drive-section',icon:'🛣️',label:'Drive Log',items:[
+        {must:true,name:'SLC → Elko NV via I-80',desc:'~3.5 hrs. Good overnight if leaving SLC by early afternoon. Elko has decent hotels, good Basque food (the Basque community in Elko is real and the food is excellent — try Star Hotel).',note:''},
+        {must:false,name:'Or push to Winnemucca',desc:'~5.5 hrs from SLC. More of Nevada but puts you closer to Reno for the next morning.',note:''},
+        {must:false,name:'Or push all the way to Reno',desc:'~7 hrs from SLC. Possible if leaving by noon. Reno has good food and casinos if you want a fun overnight.',note:''},
+      ]},
+    ]
+  },
+  {
+    id:'jul12', date:'12', month:'Jul', dow:'Sat', type:'drive',
+    title:'Drive to California — Arrive by Night',
+    sub:'Cross into California, head north on US-101, arrive Jedediah Smith area',
+    sections:[
+      {type:'drive-section',icon:'🛣️',label:'Drive Log',items:[
+        {must:true,name:'Nevada → Reno → Sacramento (I-80)',desc:'~2.5 hrs Reno to Sacramento. Cross the Sierra Nevada — beautiful mountain driving through Donner Pass, Truckee, and down the western slope.',note:'Check for any chain control requirements if traveling late in season'},
+        {must:true,name:'Sacramento → Redding (I-5 north)',desc:'~2.5 hrs. The Central Valley is not glamorous but it\'s fast. Redding has good food options for a break.',note:''},
+        {must:true,name:'Redding → Arcata → US-101 north → Crescent City',desc:'~3.5 hrs. The last stretch on US-101 enters the redwood zone around Arcata — trees start getting serious. By the time you hit Humboldt and Del Norte counties you\'re in the cathedral.',note:''},
+      ]},
+      {type:'logistics',icon:'📍',label:'Arrival Area',items:[
+        {must:true,name:'Base: Crescent City / Jedediah Smith area',desc:'Crescent City is the practical base — hotels, groceries, restaurants. Jedediah Smith Redwoods State Park is 9 miles east on US-199. The park campground is extraordinary if camping, or stay in town and drive in each day.',note:'Book accommodation well ahead — limited options in this area in July'},
+        {must:false,name:'Elk Valley Rancheria area — Howonquet Lodge',desc:'Tribal hotel near Crescent City, surprisingly good, supports the Tolowa Dee-ni\' Nation directly.',note:''},
+      ]},
+    ]
+  },
+  {
+    id:'jul13', date:'13', month:'Jul', dow:'Sun', type:'redwood',
+    title:'First Full Day — Jedediah Smith',
+    sub:'Partner settles in, full family explores the grove together',
+    sections:[
+      {type:'evening',icon:'👨‍👩‍👦',label:'Full Family Day — Everyone Together',items:[
+        {must:true,name:'Stout Grove — the great grove',desc:'0.6 miles, flat, right on the Smith River. The trees here are among the largest on Earth and the riverbank setting is unlike any other grove. Go in the morning when the mist is still in the canopy. Stand very still and listen.',note:'Free — trailhead off Howland Hill Rd, accessible in most vehicles'},
+        {must:true,name:'Swim in the Smith River',desc:'The clearest river in California — gin-clear water over smooth boulders, cold, perfect swimming. Multiple access points near the campground and on US-199. The kiddo will want to stay all afternoon.',note:'Water is cold even in July — bring a towel and sun protection'},
+        {must:false,name:'Howland Hill Road scenic drive',desc:'An unpaved road through the middle of Jedediah Smith — 10 miles of ancient redwood forest you drive through at walking speed. Passes the Stout Grove trailhead. The canopy closes completely overhead.',note:'Not suitable for large RVs; passenger cars fine in dry conditions'},
+        {must:false,name:'Dinner: Good Harvest Café — Crescent City',desc:'Best breakfast and casual dinner in Crescent City — locally sourced, good vegetarian options, the kind of place a small town is lucky to have.',note:''},
+      ]},
+    ]
+  },
+  {
+    id:'jul14', date:'14', month:'Jul', dow:'Mon', type:'redwood',
+    title:'Monday — Partner Works, You + Kiddo Explore',
+    sub:'Daytime adventure, evening full family',
+    sections:[
+      {type:'daytime',icon:'☀️',label:'Daytime — You + Kiddo',items:[
+        {must:true,name:'Fern Canyon — Gold Bluffs Beach',desc:'Drive on the beach through Fern Canyon — 50-foot walls of five-finger ferns on both sides, a stream running through the middle. Used as a filming location in Jurassic Park 2 and The Mandalorian. Otherworldly. The kiddo will lose their mind.',note:'$12/vehicle — Davison Road from US-101. High clearance recommended, creek crossing. Check road conditions.'},
+        {must:true,name:'Trees of Mystery — Klamath',desc:'A gondola through the redwood canopy, a giant Paul Bunyan and Babe the Blue Ox at the entrance (iconic photo), and inside — a genuinely excellent Native American museum. One of those roadside attractions that turns out to be legitimately great. The kiddo will love the gondola.',note:'~45 min south of Crescent City on US-101 — $25/adult, $18/child. Allow 2-3 hrs'},
+        {must:false,name:'Klamath River overlook',desc:'Pull-off on US-101 above the Klamath River mouth — on a good day you can see harbor seals, sea lions, and if you\'re very lucky, a gray whale offshore.',note:'Free pull-off, 10 minutes'},
+        {must:false,name:'Damnation Creek Trail',desc:'One of the best hikes in Redwood NP — 4 miles round trip dropping through old-growth forest to a secret rocky beach. Steep but not technical. Check tide tables before going to the beach section.',note:'Trailhead on US-101 at mile marker 16 — free'},
+      ]},
+      {type:'evening',icon:'🌅',label:'Evening — Full Family',items:[
+        {must:true,name:'Golden hour in the grove',desc:'Drive into Jedediah Smith around 6pm when the angled light comes through the trees. The redwoods glow. Bring a blanket, sit on a log, do nothing for a while. This is the moment.',note:''},
+        {must:false,name:'Dinner: SeaQuake Brewing — Crescent City',desc:'Local brewery right near the harbor. Good food, local beer, casual atmosphere, right on the waterfront. Good family spot.',note:''},
+        {must:false,name:'Battery Point Lighthouse — sunset',desc:'Walk out on the causeway at low tide to the lighthouse on a small island. One of the last accessible lighthouses on the West Coast. Check tide tables — accessible only at low tide.',note:'Free to walk out — $5 for lighthouse tour if open'},
+      ]},
+    ]
+  },
+  {
+    id:'jul15', date:'15', month:'Jul', dow:'Tue', type:'redwood',
+    title:'Tuesday — Partner Works, Free Day',
+    sub:'Slower pace, beach time, explore at will',
+    sections:[
+      {type:'daytime',icon:'☀️',label:'Daytime — You + Kiddo',items:[
+        {must:true,name:'Enderts Beach — hidden coastal trail',desc:'A little-known gem at the south end of Crescent City — a short trail drops to a long wild beach with tide pools, driftwood, and no crowds. The sea stacks offshore are dramatic.',note:'End of Enderts Beach Rd off US-101 — free, easy 1-mile trail'},
+        {must:false,name:'Redwood National Park Visitor Center — Crescent City',desc:'Well done visitor center with junior ranger program for the kiddo — they\'ll earn a badge for Redwood NP. Good orientation maps for the whole park complex.',note:'Free — the junior ranger program is genuinely fun and they\'re thorough'},
+        {must:false,name:'Point St. George',desc:'Remote headland north of Crescent City — wild Pacific views, whale watching in season, a lighthouse visible offshore. Often has good bird activity.',note:'Free — follow Washington Blvd north from Crescent City'},
+        {must:false,name:'Lake Earl Wildlife Area',desc:'A large coastal lagoon and wetland just north of Crescent City — great birding, possible river otter sightings, easy flat walking. The kiddo can wade in the shallow edges.',note:'Free — Lake Earl Drive off US-101'},
+        {must:false,name:'Second Smith River swim',desc:'The kids will ask to go back. Go back. Different spot — try the swimming hole near the confluence on US-199.',note:''},
+      ]},
+      {type:'evening',icon:'🌅',label:'Evening — Full Family',items:[
+        {must:true,name:'Crescent City harbor — watch the fishing boats come in',desc:'The commercial fleet returns in the late afternoon. Fresh Dungeness crab and salmon available right off the boats or at the adjacent docks. Get something for dinner from the source.',note:''},
+        {must:false,name:'Dinner: harbor seafood',desc:'Crescent City doesn\'t have fancy restaurants but the seafood is extraordinary — caught that day, a few miles offshore. Fisherman\'s Restaurant or just cook what you bought at the dock.',note:''},
+      ]},
+    ]
+  },
+  {
+    id:'jul16', date:'16', month:'Jul', dow:'Wed', type:'drive',
+    title:'Wednesday Afternoon — Head South, Overnight Mendocino Coast',
+    sub:'Morning in the redwoods, afternoon drive down US-101, overnight on the coast',
+    sections:[
+      {type:'daytime',icon:'☀️',label:'Morning — Last Redwood Hours',items:[
+        {must:true,name:'Boy Scout Tree Trail — Jedediah Smith',desc:'The most secluded old-growth trail in the park — 2.8 miles each way through primeval forest to the Boy Scout Tree. Go early so you have time to linger before the drive.',note:'Trailhead on Howland Hill Rd — free, muddy in spots, worth every step'},
+        {must:false,name:'Final Smith River swim',desc:'One last dip in the clearest river in California before you leave. Cold, perfect, the kiddo will not want to get out.',note:''},
+        {must:true,name:'Pack up, fuel up, download offline maps',desc:'CA-1 south of Fort Bragg loses cell signal in places. Download offline maps before leaving Crescent City.',note:''},
+      ]},
+      {type:'drive-section',icon:'🛣️',label:'Afternoon Drive — ~3.5 hrs to Mendocino area',items:[
+        {must:true,name:'US-101 south → Avenue of the Giants',desc:'Leave by 2-3pm. Avenue of the Giants starts near Garberville ~90 min south — exit off US-101 and drive all 32 miles of old-growth at a slow pace. Trees 300+ feet tall, canopy closes overhead.',note:'Exit signed from US-101 near Myers Flat — allow 1 hr at a gentle pace'},
+        {must:true,name:'Leggett → CA-1 west → Fort Bragg → Mendocino',desc:'Turn west at Leggett. The road becomes immediately dramatic — sea cliffs, coastal bluffs, fishing villages. Arrive Fort Bragg or Mendocino for the night.',note:'CA-1 is slow and gorgeous — 1.5 hrs from Leggett to Mendocino'},
+      ]},
+      {type:'evening',icon:'🌅',label:'Overnight — Mendocino Coast',items:[
+        {must:true,name:'Overnight: Little River Inn or MacCallum House',desc:'Little River Inn sits on the ocean bluff just south of Mendocino — excellent restaurant, beautiful rooms. MacCallum House is Victorian, in the village. Both book up fast in July.',note:'littleriverinn.com or maccallumhouse.com — book well ahead'},
+        {must:true,name:'Dinner in Mendocino',desc:'Victorian headland village above the Pacific. Café Beaujolais is legendary (reserve ahead). The Mendocino Hotel dining room is good. Fort Bragg harbor has more casual fresh seafood options.',note:''},
+        {must:false,name:'Mendocino Headlands walk at sunset',desc:'Free state park on the headlands above the bay — extraordinary views of sea stacks and blowhole at golden hour.',note:'Park at end of Main St in Mendocino village'},
+      ]},
+    ]
+  },
+  {
+    id:'jul17', date:'17', month:'Jul', dow:'Thu', type:'tahoe',
+    title:'Coastal Morning Drive → Tahoe — Rehearsal Day',
+    sub:'Finish CA-1, arrive Tahoe early afternoon, river float + rehearsal dinner tonight',
+    sections:[
+      {type:'drive-section',icon:'🛣️',label:'Morning Drive — ~4 hrs to Tahoe',items:[
+        {must:true,name:'Mendocino → CA-20 east → US-50 → South Lake Tahoe',desc:'~4 hrs. East on CA-20 through the mountains, Sacramento Valley, then US-50 east through Placerville and up into the Sierra Nevada to Tahoe. The last 30 min through the mountains is beautiful.',note:'Leave by 9am to arrive Tahoe early afternoon with time for the river float'},
+        {must:false,name:'Placerville stop — Gold Rush country',desc:'Heart of the California Gold Rush — old Main Street, good coffee, El Dorado County Historical Museum. Natural halfway point on US-50.',note:'~2.5 hrs from Mendocino'},
+      ]},
+      {type:'evening',icon:'💒',label:'Wedding Eve — Rehearsal Day',items:[
+        {must:true,name:'Arrive Lake Tahoe — early afternoon',desc:'Get settled, breathe, appreciate that you drove from the redwood coast to an alpine lake in one morning.',note:'July wedding weekend — book lodging immediately if not done'},
+        {must:true,name:'Pre-wedding Truckee River float',desc:'The classic Tahoe pre-wedding event — float the Truckee River from Tahoe City downstream. Tubes or kayaks, cold clear water, giant pines on both sides, easy current. Perfect way to decompress from the road.',note:'Tahoe City is ~30 min from South Shore — Truckee River Raft Company for tube rentals'},
+        {must:true,name:'Rehearsal dinner',desc:'The main event of the evening. Everyone is here. The trip has been leading to this.',note:''},
+      ]},
+    ]
+  },
+  {
+    id:'jul18', date:'18', month:'Jul', dow:'Fri', type:'tahoe',
+    title:'The Wedding Day 💍',
+    sub:'Friday July 18th — the whole reason for the trip',
+    sections:[
+      {type:'evening',icon:'💍',label:'Wedding Day',items:[
+        {must:true,name:'The Wedding',desc:'You drove from Denver through the desert, through the redwoods, up the coast, and across the Sierra Nevada to be here. Celebrate accordingly.',note:''},
+        {must:false,name:'Morning — Emerald Bay',desc:'If the ceremony is afternoon, the morning at Emerald Bay is perfect. The most photographed spot in California — emerald cove, Vikingsholm Castle on the shore, kayaks available.',note:'Emerald Bay State Park — $10 parking, go early'},
+        {must:false,name:'Sand Harbor swim — Nevada side',desc:'White granite boulders, water so clear you can see 70 feet down. Perfect pre-ceremony morning swim.',note:'Sand Harbor Nevada State Park — $12/vehicle'},
+      ]},
+    ]
+  },
+  {
+    id:'jul19', date:'19', month:'Jul', dow:'Sat', type:'tahoe',
+    title:'Post-Wedding Day — Lake Tahoe',
+    sub:'Saturday — decompress, explore, enjoy the lake before the drive home',
+    sections:[
+      {type:'evening',icon:'🏔️',label:'Full Day at the Lake',items:[
+        {must:true,name:'Tahoe Rim Trail — any section',desc:'The trail circles the entire lake at elevation. Tahoe Meadows near Incline Village is easy and spectacular. A perfect way to clear the head the morning after the wedding.',note:'Free — many trailheads around the lake'},
+        {must:false,name:'Vikingsholm Castle tour',desc:'The 1929 Scandinavian castle inside Emerald Bay — accessible by steep 1-mile trail or kayak. Tours in summer.',note:'$12/adult — steep trail down'},
+        {must:false,name:'D.L. Bliss State Park beach',desc:'One of the most beautiful beaches on the lake — white granite sand, crystal water, West Shore between Emerald Bay and Meeks Bay.',note:'$12/vehicle — fills early in July'},
+        {must:false,name:'Lake Tahoe boat cruise',desc:'Several operators on the South Shore do scenic cruises — a good way to see the lake scale from the water.',note:'Book ahead — $50-80/person'},
+        {must:true,name:'Last dinner on the lake',desc:'Sunset over the Sierra Nevada. Tomorrow you start driving home. Make this one count.',note:'Edgewood Restaurant has the best lake view — reserve ahead'},
+      ]},
+    ]
+  },
+  {
+    id:'jul20', date:'20', month:'Jul', dow:'Sun', type:'home',
+    title:'Drive Home — Day One',
+    sub:'Tahoe → Utah — the long run east, ~10-11 hrs driving',
+    sections:[
+      {type:'drive-section',icon:'🛣️',label:'Drive Plan',items:[
+        {must:true,name:'Tahoe → Reno (US-395 / I-80)',desc:'~1 hr. Quick and beautiful over the Sierra crest. Reno is a good fuel and breakfast stop.',note:''},
+        {must:true,name:'Reno → Salt Lake City (I-80 east)',desc:'~5.5 hrs. Cross the Nevada desert and Utah salt flats on I-80. Not glamorous but fast. The Bonneville Salt Flats are right on I-80 — easy 10-minute stop if you haven\'t done it.',note:'Long open stretch with limited services — fuel in Winnemucca and Elko'},
+        {must:false,name:'Wendover to SLC — salt flat pull-off',desc:'The Bonneville Salt Flats overlook is signed right off I-80, about 100 miles west of SLC. 10 minutes, completely surreal, easy stop.',note:'Free pull-off'},
+        {must:true,name:'Salt Lake City — fuel, food, stretch',desc:'Good lunch stop or early dinner depending on timing. The Great Salt Lake float at Antelope Island if you haven\'t done it — 45 min detour but it\'s extraordinary.',note:''},
+        {must:true,name:'SLC → Green River UT (I-15 south then I-70 east)',desc:'~2.5 hrs. Head south on I-15 past Provo, then join I-70 east into canyon country. The landscape changes dramatically as you enter the Colorado Plateau — red rock walls, canyon country, the Colorado River.',note:''},
+      ]},
+      {type:'logistics',icon:'🏨',label:'Overnight Options',items:[
+        {must:false,name:'Green River, UT — overnight option',desc:'A tiny town on the Colorado River at the junction of I-70 and US-191. Famous for cantaloupes and honeydew melons — the Melon Days Festival is in September but the melon stands run all summer. Crystal Geyser (a cold CO2 geyser) is 10 min south of town on the river.',note:'Basic motels — Comfort Inn or Holiday Inn Express are the reliable options'},
+        {must:false,name:'Moab, UT — overnight option',desc:'45 min south of Green River on US-191 — better food, more character, and you wake up in canyon country. If you\'ve already done Moab/Arches this trip it may feel redundant, but it\'s a better overnight than Green River.',note:'July in Moab is hot and popular — book ahead'},
+        {must:false,name:'Or push to Grand Junction, CO',desc:'~2 hrs further east on I-70. Puts you 4 hrs from Denver the next morning. Good food options, Colorado wines from the Grand Valley.',note:''},
+      ]},
+    ]
+  },
+  {
+    id:'jul21', date:'21', month:'Jul', dow:'Mon', type:'home',
+    title:'Drive Home — Day Two (or Day One finish)',
+    sub:'Utah/Colorado → Denver — the final stretch',
+    sections:[
+      {type:'drive-section',icon:'🛣️',label:'Drive Plan — From Green River to Denver',items:[
+        {must:true,name:'Green River → Grand Junction (I-70 east)',desc:'~2 hrs. I-70 through the Colorado River canyon — the road drops into a slot canyon at one point and walls close in on both sides. One of the great American highway moments. Don\'t be in the left lane.',note:''},
+        {must:true,name:'Grand Junction → Glenwood Canyon (I-70 east)',desc:'~1 hr. Glenwood Canyon is 12 miles of I-70 carved into sheer 2,000-foot canyon walls — one of the most expensive highway miles ever built. Slow down.',note:'Check CDOT for any closures — this section closes occasionally for rockfall'},
+        {must:false,name:'Glenwood Springs — quick stop',desc:'Natural hot springs pool right in town, the Hotel Colorado (Teddy Roosevelt\'s favorite), and good coffee. 30-minute break if you want it.',note:''},
+        {must:true,name:'Glenwood Springs → Vail Pass → Denver (I-70 east)',desc:'~2.5 hrs. Over Vail Pass, through the Eisenhower Tunnel (11,013 ft), down into the Front Range. Denver skyline appears. You\'re home.',note:''},
+      ]},
+      {type:'logistics',icon:'🏁',label:'Worth-It Stops (If Needed)',items:[
+        {must:false,name:'Melon stand — Green River UT',desc:'The cantaloupe from the Green River valley is genuinely extraordinary — grown in the sandy soil with the right minerals and temperature swings. Stop at one of the roadside stands on I-70 or US-191. Buy a whole one. Eat it immediately.',note:'Stands run July–September'},
+        {must:false,name:'Palisade Peach Stand — Palisade CO',desc:'Just east of Grand Junction on I-70 — the Palisade peaches are Colorado\'s greatest agricultural achievement. Pull off at any of the farm stands. The peaches in July are obscenely good.',note:'Exit 42 off I-70 — 10 minute detour'},
+        {must:false,name:'Hanging Lake trail — Glenwood Canyon',desc:'Only if you have several hours to spare — a stunning 3-mile round-trip to a turquoise hanging lake above the canyon. Requires advance permit reservation. Worth it if you planned ahead.',note:'Permit required at recreation.gov — book months ahead in summer'},
+      ]},
+      {type:'notes-section',icon:'🎉',label:'You Made It',items:[
+        {must:true,name:'Denver — home',desc:'Drop partner, unload the car, do the laundry, sleep for 10 hours. The trip is over. It was a great one.',note:''},
+      ]},
+    ]
+  },
+];
+
+// ══ BUILD CALENDAR (shared) ══
+function buildCalDay(container, day, prefix) {
+  prefix = prefix || '';
+  const dayEl = document.createElement('div');
+  dayEl.className = 'cal-day ' + day.type;
+  dayEl.id = 'CD' + prefix + day.id;
+
+  const hdr = document.createElement('div');
+  hdr.className = 'cal-day-header';
+  hdr.onclick = () => togCalDay(prefix + day.id);
+
+  const dateBlock = document.createElement('div');
+  dateBlock.className = 'cal-date-block';
+  dateBlock.innerHTML = `<span class="cal-month">${day.month}</span><span class="cal-day-num">${day.date}</span><span class="cal-dow">${day.dow}</span>`;
+
+  const titleBlock = document.createElement('div');
+  titleBlock.className = 'cal-day-title-block';
+  titleBlock.innerHTML = `<div><div class="cal-day-title">${day.title}</div><div class="cal-day-sub">${day.sub}</div></div><span class="cal-chevron" id="CC${prefix}${day.id}">▾</span>`;
+
+  hdr.appendChild(dateBlock);
+  hdr.appendChild(titleBlock);
+
+  const body = document.createElement('div');
+  body.className = 'cal-day-body';
+  body.id = 'CB' + prefix + day.id;
+
+  day.sections.forEach(sec => {
+    const secEl = document.createElement('div');
+    secEl.className = 'cal-section ' + sec.type + '-section';
+    const secLbl = document.createElement('div');
+    secLbl.className = 'cal-section-label';
+    secLbl.innerHTML = `<span class="sl-icon">${sec.icon}</span><span>${sec.label}</span>`;
+    secEl.appendChild(secLbl);
+    const itemsEl = document.createElement('div');
+    itemsEl.className = 'cal-items';
+    sec.items.forEach(item => {
+      const itemEl = document.createElement('div');
+      itemEl.className = 'cal-item ' + (item.must ? 'must' : 'opt');
+      itemEl.innerHTML = `
+        <div class="cal-item-name">${item.name}${!item.must ? '<span class="opt-badge">optional</span>' : ''}</div>
+        <div class="cal-item-desc">${item.desc}</div>
+        ${item.note ? `<div class="cal-item-note">💡 ${item.note}</div>` : ''}
+      `;
+      itemsEl.appendChild(itemEl);
+    });
+    secEl.appendChild(itemsEl);
+    body.appendChild(secEl);
+  });
+
+  const noteKey = 'calnote_' + prefix + day.id;
+  const noteVal = localStorage.getItem(noteKey) || '';
+  const noteBar = document.createElement('div');
+  noteBar.className = 'cal-note-bar';
+  noteBar.onclick = (e) => { e.stopPropagation(); togCalNote(prefix + day.id); };
+  noteBar.innerHTML = `<span class="cal-note-label">📝 Notes</span><span class="cal-note-preview" id="CNP${prefix}${day.id}">${noteVal ? noteVal.replace(/\n/g,' ').substring(0,70)+(noteVal.length>70?'…':'') : 'Add notes for this day…'}</span>`;
+
+  const noteArea = document.createElement('div');
+  noteArea.className = 'cal-note-area';
+  noteArea.id = 'CNA' + prefix + day.id;
+  const noteTa = document.createElement('textarea');
+  noteTa.className = 'cal-note-ta';
+  noteTa.placeholder = 'Notes — booking links, timing details, things to remember…';
+  noteTa.value = noteVal;
+  noteTa.oninput = () => {
+    localStorage.setItem(noteKey, noteTa.value);
+    const prev = document.getElementById('CNP' + prefix + day.id);
+    if (prev) {
+      const v = noteTa.value;
+      prev.textContent = v ? v.replace(/\n/g,' ').substring(0,70)+(v.length>70?'…':'') : 'Add notes for this day…';
+    }
+  };
+  noteArea.appendChild(noteTa);
+
+  dayEl.appendChild(hdr);
+  dayEl.appendChild(body);
+  dayEl.appendChild(noteBar);
+  dayEl.appendChild(noteArea);
+  container.appendChild(dayEl);
+}
+
+function buildCalendar() {
+  const container = document.getElementById('cal-days');
+  if (!container) return;
+  container.innerHTML = '';
+  CAL_DAYS.forEach(day => buildCalDay(container, day, ''));
+}
+
+function togCalDay(id) {
+  const body = document.getElementById('CB' + id);
+  const chev = document.getElementById('CC' + id);
+  if (!body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if (chev) chev.classList.toggle('open', !isOpen);
+}
+
+function togCalNote(id) {
+  const area = document.getElementById('CNA' + id);
+  if (!area) return;
+  area.classList.toggle('open');
+  if (area.classList.contains('open')) area.querySelector('textarea').focus();
+}
+
 initLegend();
 initFilters();
 buildAll();
+buildGrandpaCalendar();
+buildCalendar();
 </script>
 </body>
 </html>
