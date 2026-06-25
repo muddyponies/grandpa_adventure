@@ -330,6 +330,101 @@ body {
 .legend-title { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
 .legend-grid { display: flex; flex-wrap: wrap; gap: 6px; }
 
+/* ── Notes ── */
+.note-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  transition: color 0.12s;
+}
+.note-toggle:hover { color: var(--rust); }
+.note-toggle.has-note { color: var(--rust-mid); font-weight: 600; }
+.note-toggle .nt-icon { font-size: 0.75rem; transition: transform 0.15s; }
+.note-toggle.open .nt-icon { transform: rotate(90deg); }
+.note-area {
+  display: none;
+  margin-top: 6px;
+}
+.note-area.open { display: block; }
+.note-ta {
+  width: 100%;
+  min-height: 60px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: var(--ink);
+  background: var(--gold-lt);
+  resize: vertical;
+  line-height: 1.5;
+  transition: border-color 0.12s;
+}
+.note-ta:focus { outline: none; border-color: var(--rust); background: #fffef8; }
+.note-ta::placeholder { color: var(--muted); }
+
+/* ── Leg notes ── */
+.leg-note-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--gold-lt);
+  border-bottom: 0.5px solid var(--border);
+  cursor: pointer;
+}
+.leg-note-bar:hover { background: #fff8e6; }
+.leg-note-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+.leg-note-preview {
+  font-size: 0.72rem;
+  color: var(--ink-mid);
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+}
+.leg-note-area { display: none; }
+.leg-note-area.open {
+  display: block;
+  padding: 0 14px 12px;
+  background: var(--gold-lt);
+  border-bottom: 0.5px solid var(--border);
+}
+.leg-note-ta {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: var(--ink);
+  background: #fffef8;
+  resize: vertical;
+  line-height: 1.5;
+}
+.leg-note-ta:focus { outline: none; border-color: var(--rust); }
+.leg-note-ta::placeholder { color: var(--muted); }
+
 /* ── Print styles ── */
 @media print {
   body { background: #fff; font-size: 11px; }
@@ -347,6 +442,12 @@ body {
   .rp { display: none !important; }
   .slbl { display: flex !important; }
   .sg .sc:not(.ck) { display: none; }
+  .note-toggle { display: none !important; }
+  .note-area { display: block !important; }
+  .note-ta { background: #fffef0 !important; border: 0.5px solid #ccc !important; min-height: unset !important; resize: none; }
+  .leg-note-bar { cursor: default; }
+  .leg-note-area { display: block !important; }
+  .leg-note-ta { background: #fffef0 !important; border: 0.5px solid #ccc !important; min-height: unset !important; resize: none; }
 }
 
 @media (max-width: 600px) {
@@ -361,8 +462,9 @@ body {
   <h1>Grandpa Adventure — The Big One</h1>
   <p class="tagline">Denver · Southwest · Big Bend · Four Corners · Utah · Home</p>
   <div class="route-banner">
-    Denver &rarr; Raton &rarr; Roswell &rarr; Carlsbad &rarr; White Sands &rarr; Marfa &rarr; Big Bend &rarr; Tucson &rarr; Coronado Trail &rarr; Canyon de Chelly &rarr; Ship Rock &rarr; Monument Valley &rarr; Grand Canyon &rarr; Zion &rarr; Bryce &rarr; Capitol Reef &rarr; Chaco &rarr; Durango &rarr; Million Dollar Highway &rarr; Ouray &rarr; Denver
-    <br><span style="color:rgba(255,255,255,0.55);font-size:0.72rem;">Solid cards = main stops &nbsp;·&nbsp; Dashed cards = side quests &nbsp;·&nbsp; Check what sounds good, skip what doesn't &nbsp;·&nbsp; Print shows only checked stops</span>
+    Denver &rarr; Raton &rarr; Roswell &rarr; Carlsbad &rarr; White Sands &rarr; Marfa &rarr; Big Bend &rarr; Tucson &rarr; Coronado Trail &rarr; Canyon de Chelly &rarr; Ship Rock &rarr; Monument Valley &rarr; Grand Canyon &rarr; Zion &rarr; Bryce &rarr; Capitol Reef &rarr; Nine Mile Canyon &rarr; Helper &rarr; Salt Lake City
+    <br><span style="color:rgba(255,255,255,0.7);font-size:0.72rem;">Grandpa flies home from SLC &nbsp;&middot;&nbsp; Kiddo &amp; you continue west &rarr; Nevada &rarr; Sequoia &rarr; Redwoods &rarr; Coast &rarr; Tahoe</span>
+    <br><span style="color:rgba(255,255,255,0.45);font-size:0.68rem;">Solid cards = main stops &nbsp;&middot;&nbsp; Dashed = side quests &nbsp;&middot;&nbsp; Check what sounds good &nbsp;&middot;&nbsp; Print shows only checked stops</span>
   </div>
 </header>
 
@@ -510,27 +612,27 @@ const DATA = [
     {id:'u10',n:'Capitol Reef NP + Fruita orchards',tg:['star','history','eat'],sq:false,d:'The Waterpocket Fold — a 100-mile wrinkle in the Earth\'s crust. The pioneer settlement of Fruita: working orchards (cherries and early apricots in June — pay by the pound on the honor system at the trees), a one-room schoolhouse, a historic farmhouse, and petroglyphs on nearly every canyon wall. Far fewer visitors than Zion or Bryce.',dr:'~2 hrs from Bryce on UT-12 — Torrey UT has excellent lodging and restaurants nearby'},
     {id:'u11',n:'Goblin Valley SP',tg:['star','weird','nature'],sq:false,d:'A bowl of thousands of mushroom-shaped Entrada sandstone hoodoos you can scramble among freely with no trails. Kids go completely feral with delight. A Star Wars filming location that looks exactly like it. Grandpa and the kiddo will be equally enchanted by this place.',dr:'~40 min from Capitol Reef on UT-24 near Hanksville'},
   ]},
-  {id:'ch', ico:'🏛️', t:'Ancient New Mexico & home via the San Juans', s:'Chaco Canyon, Aztec, Durango, Silverton, the Million Dollar Highway, Ouray', stops:[
-    {id:'h1',n:'Edge of the Cedars Museum — Blanding UT',tg:['history','art'],sq:true,d:'Small but excellent Ancestral Puebloan artifact museum with an excavated great house on the grounds. One of the best context-setters for everything you\'ve seen on this trip. Almost nobody stops here.',dr:'Blanding UT on US-191'},
-    {id:'h2',n:'Chaco Culture NHP',tg:['star','history','dark'],sq:false,d:'The political and ceremonial capital of the Ancestral Puebloan world — massive great houses aligned to solar and lunar events, a road system stretching hundreds of miles, the largest pre-Columbian buildings north of Mexico. Remote (16 miles dirt road) which keeps crowds away and makes it feel genuinely sacred. One of those places that changes your sense of what happened here before Europeans arrived.',dr:'Near Nageezi NM — high clearance vehicle strongly recommended; fill gas in Nageezi; road impassable when wet'},
-    {id:'h3',n:'Chaco — dark sky astronomy program',tg:['dark','star','ranger'],sq:true,d:'Chaco is an International Dark Sky Park and one of the darkest sites in the country. Rangers run evening telescope programs. If you can time an overnight here, the stargazing is extraordinary.',dr:'Inside Chaco Culture NHP — check nps.gov/chcu for program schedule'},
-    {id:'h4',n:'Aztec Ruins NM — reconstructed great kiva',tg:['star','history'],sq:false,d:'The only fully reconstructed great kiva you can walk into anywhere. The 50-foot circular ceremonial chamber is surprisingly moving to stand inside. 30-minute stop, completely worth it. Despite the name, it\'s Ancestral Puebloan.',dr:'Aztec NM near Farmington — ~1.5 hrs from Chaco'},
-    {id:'h5',n:'81301 Coffee House — Durango CO',tg:['coffee','star'],sq:false,d:'The most-mentioned specialty coffee shop in Durango — excellent espresso program, good pastries, cozy Victorian building on Main Ave. After days of scenic but rustic road coffee, the coffee snob gets their proper moment here.',dr:'Downtown Durango on Main Ave — 81301coffeehouse.com'},
-    {id:'h6',n:'Durango & Silverton Narrow Gauge Railroad',tg:['star','train'],sq:false,d:'A coal-fired steam train through the Animas River Canyon to Silverton — 45 miles each way, much of the route with no road access. One of the great train rides in the American West. Grandpa will love this enormously. The whole family will.',dr:'Departs Durango depot at 8:45am daily — book at durangotrain.com, sells out'},
-    {id:'h7',n:'Silverton CO — nearly intact Victorian mining town',tg:['ghost','history','star'],sq:false,d:'A nearly intact Victorian silver-mining town at 9,318 feet surrounded by 13,000-ft peaks. The boardwalk main street is largely unchanged from the 1880s. The San Juan County Historical Society Museum is excellent. Arrive by train or drive US-550 from Durango.',dr:'Top of the Million Dollar Highway, or end of the train line from Durango'},
-    {id:'h8',n:'Million Dollar Highway — Silverton to Ouray',tg:['star','drive','view'],sq:false,d:'25 miles of switchbacks along cliff faces with no guardrails on many sections, waterfalls crossing the road, 11,000-ft Red Mountain Pass, mine tailings of brilliant orange and red from the old silver operations. Drive it northbound (Silverton to Ouray) so you\'re on the inside lane at the cliff edges. Take it slow.',dr:'US-550 between Silverton and Ouray — Bear Creek Falls pull-off halfway is worth stopping for'},
-    {id:'h9',n:'Ouray CO — hot springs pool',tg:['star','hot','history'],sq:false,d:'A Victorian mining town in a box canyon with 13,000-ft peaks on three sides. The natural geothermal hot springs pool is open year-round. Box Canyon Falls — a dramatic slot canyon waterfall — is a 5-minute walk from Main Street. You have earned this soak after this trip.',dr:'Downtown Ouray — ouraycolorado.com for pool info'},
-    {id:'h10',n:'Black Canyon of the Gunnison NP',tg:['view','nature'],sq:true,d:'Darker walls and in some ways more dramatic than the Grand Canyon — ancient Precambrian rock, extraordinary shadows. Near Montrose, 30 minutes off US-50. A final exclamation point before Denver.',dr:'~1 hr from Ouray near Montrose on US-50 — nps.gov/blca'},
+  {id:'slc', ico:'🏔️', t:'North to Salt Lake City — Grandpa\'s send-off', s:'Helper, Nine Mile Canyon, the Great Salt Lake, and SLC farewell', stops:[
+    {id:'slc1',n:'Nine Mile Canyon — longest art gallery in the world',tg:['star','history','view'],sq:false,d:'A 40-mile canyon east of Price with thousands of Fremont culture petroglyphs and pictographs on the walls — more rock art per mile than anywhere in North America. Panels of bighorn sheep, hunting scenes, and geometric figures stretching for miles. Almost nobody comes here. Drive slowly and pull over constantly.',dr:'East of Price UT on Nine Mile Canyon Rd — dirt road, passenger car ok in dry weather. Allow 3-4 hrs'},
+    {id:'slc2',n:'Helper UT — Western Mining & Railroad Museum',tg:['ghost','history','art'],sq:false,d:'A beautifully preserved coal mining and railroad town in a canyon on US-6. The Western Mining & Railroad Museum is genuinely excellent and almost nobody stops here — mining equipment, company town history, labor history. The main street still has its original 1920s storefronts. One of Utah\'s most underrated towns.',dr:'On US-6 between Price and I-15 — right on the route north to SLC'},
+    {id:'slc3',n:'Price UT — College of Eastern Utah Prehistoric Museum',tg:['history','art'],sq:true,d:'One of the best dinosaur and prehistoric museums in Utah — full-scale allosaurus and camptosaurus skeletons, extensive Fremont culture artifacts, and the context for all the petroglyphs you\'ve been seeing. Free admission. Completely overlooked.',dr:'Downtown Price UT — free, open daily'},
+    {id:'slc4',n:'Gilgal Sculpture Garden — Salt Lake City',tg:['weird','art','star'],sq:false,d:'A completely bizarre free outdoor sculpture garden in a SLC neighborhood — a Mormon bishop spent 18 years carving giant sphinx heads onto boulders in a private garden, with Joseph Smith\'s face on the sphinx body. Sphinxes, totems, biblical scenes, all carved in the 1940s-50s. Wonderfully strange and completely free. The kiddo will have a lot of questions.',dr:'749 E. 500 S., Salt Lake City — free, open dawn to dusk'},
+    {id:'slc5',n:'Great Salt Lake — float in it',tg:['star','swim','weird'],sq:false,d:'The lake is so salty you float effortlessly — it\'s genuinely hard to sink. Antelope Island State Park is the best access point, with bison roaming the island and the full scale of the lake visible. The water smells intensely of brine shrimp which is part of the experience. Grandpa\'s last big adventure before the airport.',dr:'Antelope Island State Park — 45 min from SLC downtown, $15/vehicle'},
+    {id:'slc6',n:'Temple Square & Natural History Museum of Utah',tg:['history','art'],sq:true,d:'Temple Square is a remarkable piece of American religious architecture whatever your affiliation. The Natural History Museum of Utah is genuinely world-class — the dinosaur hall is extraordinary, the Native cultures galleries are excellent.',dr:'Downtown Salt Lake City'},
+    {id:'slc7',n:'SLC — Grandpa flies home from Salt Lake City Airport',tg:['star'],sq:false,d:'SLC is a major hub with direct flights to most cities. Easy 20 minutes from downtown. Drop Grandpa at departures, have a proper goodbye, and then you and the kiddo point the car west toward California.',dr:'Salt Lake City International Airport — 20 min from downtown SLC'},
   ]},
-  {id:'ca', ico:'🚗', t:'Kiddo & you — continuing to California', s:'After Grandpa flies out — big trees, coastline, and Tahoe', stops:[
-    {id:'ca1',n:'Bonneville Salt Flats',tg:['view','weird'],sq:true,d:'White salt flat where land speed records are set — completely flat horizon in every direction. Surreal and strange. Easy highway pull-off on I-80 west of Salt Lake.',dr:'~1.5 hrs west of SLC on I-80'},
-    {id:'ca2',n:'Great Basin NP — bristlecones & Lehman Caves',tg:['cave','nature','dark'],sq:true,d:'4,000-year-old bristlecone pine trees and gorgeous Lehman Caves guided tour. Almost nobody goes. Wheeler Peak Glacier — southernmost in the US. US-50, the Loneliest Road. International Dark Sky Park.',dr:'Eastern Nevada on US-50 — nps.gov/grba'},
-    {id:'ca3',n:'Mono Lake — tufa towers',tg:['star','view','nature'],sq:false,d:'Ancient saline lake 760,000 years old with alien calcium carbonate tufa towers rising from the water. The light and reflections are extraordinary. Migratory birds in huge numbers. US-395 near Lee Vining.',dr:'Eastern Sierra on US-395 near Lee Vining'},
-    {id:'ca4',n:'Sequoia NP — General Sherman Tree',tg:['star','nature'],sq:false,d:'The largest living thing on Earth by volume — 275 feet tall, 36 feet in diameter, approximately 2,200 years old. It was already ancient when Rome fell. The scale is genuinely incomprehensible until you\'re standing next to it.',dr:'~3 hrs from Mono Lake via US-395 and CA-168 west'},
-    {id:'ca5',n:'Kings Canyon — deepest canyon in North America',tg:['star','view','nature'],sq:true,d:'Deeper than the Grand Canyon. The scenic byway drops 2,600 feet to the canyon floor through switchbacks. The Zumwalt Meadow loop (2 miles, easy, beautiful) at the bottom is one of the best easy hikes in the Sierra.',dr:'Adjacent to Sequoia NP — check road conditions for CA-180'},
-    {id:'ca6',n:'Avenue of the Giants — coastal redwoods',tg:['star','nature'],sq:false,d:'32 miles of old-growth coastal redwood grove — trees 300+ feet tall and up to 1,500 years old. The canopy is so dense it feels like a cathedral. The Founders Grove has the Dyerville Giant, one of the tallest trees ever recorded before it fell.',dr:'US-101 Humboldt County — ~3-4 hrs north from Sequoia via CA-99/I-5'},
-    {id:'ca7',n:'CA-1 — Pacific Coast Highway',tg:['star','drive','view'],sq:false,d:'The most dramatic coastal road in America. McWay Falls drops onto an inaccessible beach (which makes it more beautiful). Elephant seals lounging at San Simeon. Pull over constantly. Go as slow as you can.',dr:'Central California coast between Carmel and San Luis Obispo'},
-    {id:'ca8',n:'Lake Tahoe',tg:['nature','swim'],sq:false,d:'One of the most beautiful alpine lakes in the world — 22 miles long, 1,645 feet deep, water so clear you can see 70 feet down. A perfect final destination.',dr:'Eastern Sierra — 3 hrs from San Francisco, 45 min from Reno airport'},
+  {id:'ca', ico:'🚗', t:'Kiddo & you — on to California', s:'After the SLC goodbye — Nevada, big trees, redwood coast, and Tahoe', stops:[
+    {id:'ca1',n:'Bonneville Salt Flats',tg:['view','weird'],sq:true,d:'White salt flat where land speed records are set — completely flat horizon in every direction, nothing for miles. Surreal and very strange. Easy highway pull-off right on I-80 west of SLC.',dr:'~1.5 hrs west of SLC on I-80 — signed pull-off'},
+    {id:'ca2',n:'Wendover UT/NV — state line town',tg:['weird'],sq:true,d:'The classic Nevada state line casino town — useful fuel and food stop after the salt flats. The drive across the salt desert from SLC to Wendover on I-80 is one of the most surreal stretches of highway in America.',dr:'On I-80 at the Utah/Nevada border'},
+    {id:'ca3',n:'Great Basin NP — bristlecones & Lehman Caves',tg:['cave','nature','dark','star'],sq:true,d:'4,000-year-old bristlecone pine trees and gorgeous Lehman Caves guided tour. Almost nobody goes here. Wheeler Peak Glacier is the southernmost glacier in the US. International Dark Sky Park with extraordinary night skies. Worth the detour south from I-80.',dr:'On US-50 (the Loneliest Road) in eastern Nevada — nps.gov/grba'},
+    {id:'ca4',n:'US-50 — the Loneliest Road in America',tg:['drive','view'],sq:true,d:'Life magazine called it "the loneliest road in America" in 1986 and the name stuck. 287 miles of Nevada desert with almost nothing between towns. Strange, beautiful, and very quiet. An alternative to I-80 if you want the slow road.',dr:'From Ely NV to Carson City NV — parallels I-80 to the south'},
+    {id:'ca5',n:'Mono Lake — tufa towers',tg:['star','view','nature'],sq:false,d:'Ancient saline lake 760,000 years old with alien calcium carbonate tufa towers rising from the water. The light and reflections are extraordinary — photographers make pilgrimages here. Enormous numbers of migratory birds. US-395 near Lee Vining.',dr:'Eastern Sierra on US-395 near Lee Vining — south from US-50 via US-395'},
+    {id:'ca6',n:'Sequoia NP — General Sherman Tree',tg:['star','nature'],sq:false,d:'The largest living thing on Earth by volume — 275 feet tall, 36 feet in diameter, approximately 2,200 years old. It was old when Rome fell. The scale is genuinely incomprehensible until you\'re standing right next to it.',dr:'~3 hrs from Mono Lake via US-395 south and CA-168 west'},
+    {id:'ca7',n:'Kings Canyon — deepest canyon in North America',tg:['star','view','nature'],sq:true,d:'Deeper than the Grand Canyon. The scenic byway drops 2,600 feet to the canyon floor through switchbacks. The Zumwalt Meadow loop (2 miles, easy, beautiful) at the bottom is one of the best easy hikes in the Sierra.',dr:'Adjacent to Sequoia NP — Kings Canyon Scenic Byway, CA-180'},
+    {id:'ca8',n:'Avenue of the Giants — coastal redwoods',tg:['star','nature'],sq:false,d:'32 miles of old-growth coastal redwood grove — trees 300+ feet tall and up to 1,500 years old. The canopy is so dense it feels like a cathedral. Founders Grove has the Dyerville Giant, one of the tallest trees ever recorded.',dr:'US-101 in Humboldt County — 3-4 hrs from Sequoia via CA-99/I-5 north'},
+    {id:'ca9',n:'Lost Coast — Mattole Road',tg:['drive','view','nature'],sq:true,d:'24 miles of dirt road through the most remote stretch of the California coast — no services, black sand beaches, King Range mountains dropping straight to the sea. The most dramatic and isolated coastal drive in California. Not for the faint-hearted.',dr:'Off US-101 in Humboldt County — high clearance helpful, check road conditions'},
+    {id:'ca10',n:'CA-1 — Pacific Coast Highway through Big Sur',tg:['star','drive','view'],sq:false,d:'The most dramatic coastal road in America. McWay Falls drops onto an inaccessible beach (which makes it more beautiful). Elephant seals lounging at San Simeon. Bixby Bridge. Pull over constantly. Go as slow as you can.',dr:'Central California coast between Carmel and San Luis Obispo'},
+    {id:'ca11',n:'Lake Tahoe',tg:['star','nature','swim'],sq:false,d:'One of the most beautiful alpine lakes in the world — 22 miles long, 1,645 feet deep, water so clear you can see 70 feet down. A perfect final destination or waypoint into California. Reno airport is 45 min if you need to fly home from here.',dr:'Eastern Sierra — from SLC go west on I-80 through Reno then south on US-395, or south from SLC via US-50 and CA-89'},
   ]},
 ];
 
@@ -581,6 +683,33 @@ function buildAll() {
     hdr.innerHTML = `<span class="leg-icon">${leg.ico}</span><div class="leg-text"><div class="leg-title">${leg.t}</div><div class="leg-sub">${leg.s}</div></div><span class="leg-badge empty" id="B${leg.id}">0 checked</span><span class="leg-chevron" id="C${leg.id}">▾</span>`;
     hdr.onclick = () => togLeg(leg.id);
 
+    // Leg-level notes bar
+    const legNoteKey = 'lnote_' + leg.id;
+    const legNoteVal = localStorage.getItem(legNoteKey) || '';
+    const legNoteBar = document.createElement('div');
+    legNoteBar.className = 'leg-note-bar';
+    legNoteBar.id = 'LNB' + leg.id;
+    legNoteBar.innerHTML = `<span class="leg-note-label">📝 Leg notes</span><span class="leg-note-preview" id="LNBP${leg.id}">${legNoteVal ? legNoteVal.replace(/\n/g,' ').substring(0,80)+(legNoteVal.length>80?'…':'') : 'Click to add notes for this leg…'}</span>`;
+    legNoteBar.onclick = (e) => { e.stopPropagation(); togLegNote(leg.id); };
+
+    const legNoteArea = document.createElement('div');
+    legNoteArea.className = 'leg-note-area';
+    legNoteArea.id = 'LNA' + leg.id;
+    const legNoteTa = document.createElement('textarea');
+    legNoteTa.className = 'leg-note-ta';
+    legNoteTa.placeholder = 'Notes for this leg — lodging ideas, timing, things to book in advance, packing reminders…';
+    legNoteTa.value = legNoteVal;
+    legNoteTa.onclick = e => e.stopPropagation();
+    legNoteTa.oninput = () => {
+      localStorage.setItem(legNoteKey, legNoteTa.value);
+      const preview = document.getElementById('LNBP' + leg.id);
+      if (preview) {
+        const v = legNoteTa.value;
+        preview.textContent = v ? v.replace(/\n/g,' ').substring(0,80)+(v.length>80?'…':'') : 'Click to add notes for this leg…';
+      }
+    };
+    legNoteArea.appendChild(legNoteTa);
+
     const body = document.createElement('div');
     body.className = 'leg-body';
     body.id = 'BD' + leg.id;
@@ -611,13 +740,23 @@ function buildAll() {
     }
 
     div.appendChild(hdr);
+    div.appendChild(legNoteBar);
+    div.appendChild(legNoteArea);
     div.appendChild(body);
     c.appendChild(div);
   });
+  loadChecked();
   updStats();
   applyF();
-  // Open first leg by default
   togLeg(DATA[0].id);
+}
+
+function togLegNote(id) {
+  const area = document.getElementById('LNA' + id);
+  if (!area) return;
+  const isOpen = area.classList.contains('open');
+  area.classList.toggle('open', !isOpen);
+  if (!isOpen) area.querySelector('textarea').focus();
 }
 
 function mkCard(s) {
@@ -634,6 +773,12 @@ function mkCard(s) {
   info.className = 'si';
 
   const tgsHtml = (s.tg || []).map(t => `<span class="tg tg-${t}">${TL[t] || t}</span>`).join('');
+
+  // Load saved note
+  const noteKey = 'note_' + s.id;
+  const noteVal = localStorage.getItem(noteKey) || '';
+  const hasNote = noteVal.trim().length > 0;
+
   info.innerHTML = `
     <div class="stop-top"><span class="sn">${s.n}</span></div>
     <div class="tgs">${tgsHtml}</div>
@@ -641,10 +786,87 @@ function mkCard(s) {
     <div class="sdrv">${s.dr}</div>
   `;
 
+  // Notes toggle button
+  const noteToggle = document.createElement('button');
+  noteToggle.className = 'note-toggle' + (hasNote ? ' has-note' : '');
+  noteToggle.id = 'NT' + s.id;
+  noteToggle.innerHTML = `<span class="nt-icon">▶</span> ${hasNote ? '📝 Note added' : 'Add a note'}`;
+  noteToggle.onclick = (e) => { e.stopPropagation(); togNote(s.id); };
+
+  // Notes area
+  const noteArea = document.createElement('div');
+  noteArea.className = 'note-area';
+  noteArea.id = 'NA' + s.id;
+
+  const noteTa = document.createElement('textarea');
+  noteTa.className = 'note-ta';
+  noteTa.placeholder = 'Your notes — booking links, reminders, things Grandpa said he wants to do here, opening hours…';
+  noteTa.value = noteVal;
+  noteTa.setAttribute('data-has-note', hasNote ? 'true' : 'false');
+  noteTa.onclick = e => e.stopPropagation();
+  noteTa.oninput = () => {
+    const v = noteTa.value;
+    const has = v.trim().length > 0;
+    noteTa.setAttribute('data-has-note', has ? 'true' : 'false');
+    localStorage.setItem(noteKey, v);
+    const tog = document.getElementById('NT' + s.id);
+    if (tog) {
+      tog.className = 'note-toggle' + (has ? ' has-note' : '');
+      tog.innerHTML = `<span class="nt-icon open-icon">▶</span> ${has ? '📝 Note added' : 'Add a note'}`;
+      if (document.getElementById('NA' + s.id).classList.contains('open')) {
+        tog.classList.add('open');
+        tog.querySelector('.nt-icon').style.transform = 'rotate(90deg)';
+      }
+    }
+  };
+
+  noteArea.appendChild(noteTa);
+  info.appendChild(noteToggle);
+  info.appendChild(noteArea);
+
   c.appendChild(chkEl);
   c.appendChild(info);
-  c.onclick = () => togStop(s.id);
+  c.onclick = (e) => {
+    // Don't toggle stop if clicking notes
+    if (e.target.closest('.note-toggle') || e.target.closest('.note-area')) return;
+    togStop(s.id);
+  };
   return c;
+}
+
+function togNote(id) {
+  const area = document.getElementById('NA' + id);
+  const tog = document.getElementById('NT' + id);
+  if (!area || !tog) return;
+  const isOpen = area.classList.contains('open');
+  area.classList.toggle('open', !isOpen);
+  tog.classList.toggle('open', !isOpen);
+  if (!isOpen) {
+    area.querySelector('textarea').focus();
+  }
+}
+
+function saveChecked() {
+  localStorage.setItem('ga_checked', JSON.stringify([...ckd]));
+}
+
+function loadChecked() {
+  try {
+    const saved = localStorage.getItem('ga_checked');
+    if (saved) {
+      const ids = JSON.parse(saved);
+      ids.forEach(id => {
+        ckd.add(id);
+        const card = document.getElementById('SC' + id);
+        if (card) {
+          card.classList.add('ck');
+          const ch = card.querySelector('.chk');
+          if (ch) ch.innerHTML = '✓';
+        }
+      });
+      updBadges();
+    }
+  } catch(e) {}
 }
 
 function togStop(id) {
@@ -655,6 +877,7 @@ function togStop(id) {
   const chkEl = c.querySelector('.chk');
   if (ckd.has(id)) { c.classList.add('ck'); chkEl.innerHTML = '✓'; }
   else { c.classList.remove('ck'); chkEl.innerHTML = ''; }
+  saveChecked();
   updStats();
   updBadges();
   updPreview();
@@ -711,7 +934,7 @@ function chkAll() {
     const c = document.getElementById('SC' + s.id);
     if (c) { c.classList.add('ck'); const ch = c.querySelector('.chk'); if (ch) ch.innerHTML = '✓'; }
   }));
-  updStats(); updBadges(); updPreview();
+  saveChecked(); updStats(); updBadges(); updPreview();
 }
 
 function clrAll() {
@@ -720,6 +943,7 @@ function clrAll() {
     const c = document.getElementById('SC' + s.id);
     if (c) { c.classList.remove('ck'); const ch = c.querySelector('.chk'); if (ch) ch.innerHTML = ''; }
   }));
+  saveChecked();
   updStats(); updBadges();
   document.getElementById('rp').style.display = 'none';
 }
@@ -733,7 +957,7 @@ function chkCat(tags) {
       if (c) { c.classList.add('ck'); const ch = c.querySelector('.chk'); if (ch) ch.innerHTML = '✓'; }
     }
   }));
-  updStats(); updBadges(); updPreview();
+  saveChecked(); updStats(); updBadges(); updPreview();
 }
 
 function chkStars() { chkCat(['star']); }
