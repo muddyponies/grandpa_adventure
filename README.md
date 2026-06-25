@@ -1251,7 +1251,7 @@ function showTab(id, btn) {
 // ══ GRANDPA LEG DATA ══
 const GRANDPA_DAYS = [
   {
-    id:'g_jul3', date:'3', month:'Jul', dow:'Thu', type:'slc',
+    id:'g_jul3', date:'3', month:'Jul', dow:'Fri', type:'slc',
     title:'Grandpa Arrives Denver!',
     sub:'Pick up from DIA, rest day, settle in',
     sections:[
@@ -1262,7 +1262,7 @@ const GRANDPA_DAYS = [
     ]
   },
   {
-    id:'g_jul4', date:'4', month:'Jul', dow:'Fri', type:'slc',
+    id:'g_jul4', date:'4', month:'Jul', dow:'Sat', type:'slc',
     title:'July 4th in Denver',
     sub:'Rest day, local adventure, fireworks',
     sections:[
@@ -1275,7 +1275,7 @@ const GRANDPA_DAYS = [
     ]
   },
   {
-    id:'g_jul5', date:'5', month:'Jul', dow:'Sat', type:'drive',
+    id:'g_jul5', date:'5', month:'Jul', dow:'Sun', type:'drive',
     title:'Hit the Road — Denver → Durango',
     sub:'South over Wolf Creek Pass through the San Juans, ~5.5 hrs',
     sections:[
@@ -1293,7 +1293,7 @@ const GRANDPA_DAYS = [
     ]
   },
   {
-    id:'g_jul6', date:'6', month:'Jul', dow:'Sun', type:'drive',
+    id:'g_jul6', date:'6', month:'Jul', dow:'Mon', type:'drive',
     title:'Durango → Aztec Ruins → Carlsbad Caverns',
     sub:'Ancient ruins in the morning, bats at sunset, ~5.5 hrs driving',
     sections:[
@@ -1309,7 +1309,7 @@ const GRANDPA_DAYS = [
     ]
   },
   {
-    id:'g_jul7', date:'7', month:'Jul', dow:'Mon', type:'drive',
+    id:'g_jul7', date:'7', month:'Jul', dow:'Tue', type:'drive',
     title:'Carlsbad → White Sands',
     sub:'Short drive, full afternoon in the dunes, sunset is everything',
     sections:[
@@ -1325,7 +1325,7 @@ const GRANDPA_DAYS = [
     ]
   },
   {
-    id:'g_jul8', date:'8', month:'Jul', dow:'Tue', type:'drive',
+    id:'g_jul8', date:'8', month:'Jul', dow:'Wed', type:'drive',
     title:'White Sands → West Across New Mexico → Overnight near Grand Canyon',
     sub:'Long drive day with great stops — ~6 hrs to Williams or Tusayan AZ',
     sections:[
@@ -1338,7 +1338,7 @@ const GRANDPA_DAYS = [
     ]
   },
   {
-    id:'g_jul9', date:'9', month:'Jul', dow:'Wed', type:'drive',
+    id:'g_jul9', date:'9', month:'Jul', dow:'Thu', type:'drive',
     title:'Grand Canyon South Rim — Full Day',
     sub:'Enter via Desert View east entrance, work west along the rim',
     sections:[
@@ -1357,7 +1357,7 @@ const GRANDPA_DAYS = [
     ]
   },
   {
-    id:'g_jul10', date:'10', month:'Jul', dow:'Thu', type:'drive',
+    id:'g_jul10', date:'10', month:'Jul', dow:'Fri', type:'drive',
     title:'Grand Canyon → Monument Valley — Last Night on the Road',
     sub:'Exit via Desert View, north on US-89, arrive for afternoon light',
     sections:[
@@ -1376,7 +1376,7 @@ const GRANDPA_DAYS = [
     ]
   },
   {
-    id:'g_jul11', date:'11', month:'Jul', dow:'Fri', type:'slc',
+    id:'g_jul11', date:'11', month:'Jul', dow:'Sat', type:'slc',
     title:'Sunrise at Monument Valley → SLC → Grandpa Flies Home',
     sub:'The best possible last morning, then north to the airport',
     sections:[
@@ -1409,7 +1409,7 @@ function buildGrandpaCalendar() {
 // ══ CALENDAR DATA ══
 const CAL_DAYS = [
   {
-    id:'jul10', date:'10', month:'Jul', dow:'Thu', type:'slc',
+    id:'jul10', date:'10', month:'Jul', dow:'Fri', type:'slc',
     title:'SLC — Last Night with Grandpa',
     sub:'Sendoff dinner, hot springs soak, get the airport plan sorted',
     sections:[
@@ -1425,7 +1425,7 @@ const CAL_DAYS = [
     ]
   },
   {
-    id:'jul11', date:'11', month:'Jul', dow:'Fri', type:'slc',
+    id:'jul11', date:'11', month:'Jul', dow:'Sat', type:'slc',
     title:'Grandpa Flies Home — Head West',
     sub:'Airport sendoff, hit I-80, overnight somewhere in Nevada',
     sections:[
@@ -1442,7 +1442,7 @@ const CAL_DAYS = [
     ]
   },
   {
-    id:'jul12', date:'12', month:'Jul', dow:'Sat', type:'drive',
+    id:'jul12', date:'12', month:'Jul', dow:'Sun', type:'drive',
     title:'Drive to California — Arrive by Night',
     sub:'Cross into California, head north on US-101, arrive Jedediah Smith area',
     sections:[
@@ -1458,7 +1458,7 @@ const CAL_DAYS = [
     ]
   },
   {
-    id:'jul13', date:'13', month:'Jul', dow:'Sun', type:'redwood',
+    id:'jul13', date:'13', month:'Jul', dow:'Mon', type:'redwood',
     title:'First Full Day — Jedediah Smith',
     sub:'Partner settles in, full family explores the grove together',
     sections:[
@@ -1471,7 +1471,7 @@ const CAL_DAYS = [
     ]
   },
   {
-    id:'jul14', date:'14', month:'Jul', dow:'Mon', type:'redwood',
+    id:'jul14', date:'14', month:'Jul', dow:'Tue', type:'redwood',
     title:'Monday — Partner Works, You + Kiddo Explore',
     sub:'Daytime adventure, evening full family',
     sections:[
@@ -1489,7 +1489,7 @@ const CAL_DAYS = [
     ]
   },
   {
-    id:'jul15', date:'15', month:'Jul', dow:'Tue', type:'redwood',
+    id:'jul15', date:'15', month:'Jul', dow:'Wed', type:'redwood',
     title:'Tuesday — Partner Works, Free Day',
     sub:'Slower pace, beach time, explore at will',
     sections:[
@@ -1507,7 +1507,7 @@ const CAL_DAYS = [
     ]
   },
   {
-    id:'jul16', date:'16', month:'Jul', dow:'Wed', type:'drive',
+    id:'jul16', date:'16', month:'Jul', dow:'Thu', type:'drive',
     title:'Wednesday Afternoon — Head South, Overnight Mendocino Coast',
     sub:'Morning in the redwoods, afternoon drive down US-101, overnight on the coast',
     sections:[
@@ -1528,7 +1528,7 @@ const CAL_DAYS = [
     ]
   },
   {
-    id:'jul17', date:'17', month:'Jul', dow:'Thu', type:'tahoe',
+    id:'jul17', date:'17', month:'Jul', dow:'Fri', type:'tahoe',
     title:'Coastal Morning Drive → Tahoe — Rehearsal Day',
     sub:'Finish CA-1, arrive Tahoe early afternoon, river float + rehearsal dinner tonight',
     sections:[
@@ -1544,7 +1544,7 @@ const CAL_DAYS = [
     ]
   },
   {
-    id:'jul18', date:'18', month:'Jul', dow:'Fri', type:'tahoe',
+    id:'jul18', date:'18', month:'Jul', dow:'Sat', type:'tahoe',
     title:'The Wedding Day 💍',
     sub:'Friday July 18th — the whole reason for the trip',
     sections:[
@@ -1556,7 +1556,7 @@ const CAL_DAYS = [
     ]
   },
   {
-    id:'jul19', date:'19', month:'Jul', dow:'Sat', type:'tahoe',
+    id:'jul19', date:'19', month:'Jul', dow:'Sun', type:'tahoe',
     title:'Post-Wedding Day — Lake Tahoe',
     sub:'Saturday — decompress, explore, enjoy the lake before the drive home',
     sections:[
@@ -1570,7 +1570,7 @@ const CAL_DAYS = [
     ]
   },
   {
-    id:'jul20', date:'20', month:'Jul', dow:'Sun', type:'home',
+    id:'jul20', date:'20', month:'Jul', dow:'Mon', type:'home',
     title:'Drive Home — Day One',
     sub:'Tahoe → Utah — the long run east, ~10-11 hrs driving',
     sections:[
@@ -1589,7 +1589,7 @@ const CAL_DAYS = [
     ]
   },
   {
-    id:'jul21', date:'21', month:'Jul', dow:'Mon', type:'home',
+    id:'jul21', date:'21', month:'Jul', dow:'Tue', type:'home',
     title:'Drive Home — Day Two (or Day One finish)',
     sub:'Utah/Colorado → Denver — the final stretch',
     sections:[
